@@ -1,7 +1,6 @@
 <% javascript_include_tag :home %>
 <%= render 'shared/filter' %>
-<div class="container" data-intro='Hello step one!' data-step='1'>
-	<button text="Start Presentation" onclick="introJs().start();"/>
+<div class="container">
 	<div id="columns">
 		<%= render :partial => 'shared/pinresults', :collection => @resources, :as => 'resource' %>
 	</div>

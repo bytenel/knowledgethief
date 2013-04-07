@@ -1,4 +1,4 @@
-   <div id="mainSearchWrapper">
+   <div id="mainSearchWrapper" data-intro='You can search for anything you want to learn here.' data-step='2'>
 		<%= form_tag("/resources/search", :method => "get", :id => "search") do %>
 			<%= text_field_tag(:q, params[:q],
 			    {:id => "search_input_text", :class=>"mainSearch", :style => "outline:none !important;",

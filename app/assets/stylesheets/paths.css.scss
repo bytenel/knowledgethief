@@ -2,4 +2,56 @@
 	h1,tr,th,td,a{
 		color:black !important;
 	}
+	width:100%;
+}
+.ribbonHolder{
+	width:20%;
+	height:100%;
+	float:left;
+}
+.pathsRight{
+	width:80%;
+	height:100%;
+	float:left;
+}
+.pathsWrapper{
+	position:relative;
+	display:block;
+	width:100%;
+	padding-top:10px;
+	padding-bottom:6px;
+	margin-top:5px;
+	float:left;
+	border:solid 1px #ccc;
+	background:white;
+}
+
+.pathsTitle a{
+	font-size:20px;
+	color:#08C;
+	display:block;
+	text-decoration:none;
+	padding-bottom:2px;
+	line-height:1.2;
+	padding-left:10px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.pathsDescription{
+	font-size:13px;
+	color:#666;
+	padding-top:2px;
+	padding-left:10px;
+	display:block;
+	line-height:1.38;
+	overflow:hidden;
+	padding-bottom:2px;
+	font-family:robotoLight;
+}
+.subOptions a{
+	padding-left:10px;
+	font-size:14px;
+	color:#005580;
+	margin-top:2px;
+	text-decoration:none;
 }
