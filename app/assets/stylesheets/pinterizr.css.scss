@@ -1,32 +1,20 @@
 #columns {
-	-webkit-column-count: 3;
-	-webkit-column-gap: 10px;
-	-webkit-column-fill: auto;
-	-moz-column-count: 3;
-	-moz-column-gap: 10px;
-	-moz-column-fill: auto;
-	column-count: 3;
-	column-gap: 15px;
-	column-fill: auto;
-	padding:10px;
+	padding-top: 15px;
 	background:#F6F6F6;
 }
 
 .pin {
+	width:24%;
 	z-index:0;
 	display: inline-block;
+	opacity: 0;
 	background: #FEFEFE;
 	border: 2px solid #FAFAFA;
 	box-shadow: 0px 2px 2px rgba(34, 25, 25, 0.4);
-	margin: 0 2px 15px;
-	-webkit-column-break-inside: avoid;
-	-moz-column-break-inside: avoid;
-	column-break-inside: avoid;
+	margin: 0 5px 15px;
 	padding: 15px;
 	padding-bottom: 5px;
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-	opacity: 1;
-	
 	-webkit-transition: all .2s ease;
 	-moz-transition: all .2s ease;
 	-o-transition: all .2s ease;
@@ -98,15 +86,6 @@
 	margin: 0;
 	z-index:0;
 }
-
-@media (min-width: 960px) {
-	#columns {
-		-webkit-column-count: 4;
-		-moz-column-count: 4;
-		column-count: 4;
-	}
-}
-
 
 #columns:hover .pin:not(:hover) {
 	opacity: 0.4;

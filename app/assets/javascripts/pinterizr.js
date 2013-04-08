@@ -158,4 +158,21 @@ $(function(){
 		    	}, 250);
 		  }
 		);
+
+	/* init the masonry columns */
+	var $container = $('#columns');
+		$container.imagesLoaded(function(){
+			$('.pin').css({opacity: 1});
+			$container.masonry({
+				itemSelector : '.pin',
+				isResizable : true,
+				isAnimated: true,
+				animationOptions: {
+			    	duration: 400,
+				    easing: 'swing',
+				    queue: false
+				}
+			});
+	});
+	
 });

@@ -1,4 +1,7 @@
-$('#columns').append('<%= j render :partial => 'shared/pinresults', :collection => @resources, :as => 'resource' %>').fadeIn();
+var $pinElements = $('<%= j render :partial => 'shared/pinresults', :collection => @resources, :as => 'resource' %>');
+	
+$("#columns").append($pinElements).masonry( 'appended', $pinElements, true );
+$pinElements.css({opacity:1});
 <% if @resources.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate(@resources) %>');
 <% else %>
