@@ -1,5 +1,20 @@
 Kt::Application.routes.draw do
 
+  resources :resumes
+
+
+  resources :educations
+
+
+  resources :experiences
+
+
+  resources :skills
+
+
+  resources :achievements
+
+
   resources :flags
 
   resources :activities

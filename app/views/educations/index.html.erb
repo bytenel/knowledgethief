@@ -1,0 +1,37 @@
+<h1>Listing educations</h1>
+
+<table>
+  <tr>
+    <th>Resume</th>
+    <th>City</th>
+    <th>State</th>
+    <th>User</th>
+    <th>School name</th>
+    <th>Major</th>
+    <th>Since year</th>
+    <th>End year</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @educations.each do |education| %>
+  <tr>
+    <td><%= education.resume_id %></td>
+    <td><%= education.city %></td>
+    <td><%= education.state %></td>
+    <td><%= education.user_id %></td>
+    <td><%= education.school_name %></td>
+    <td><%= education.major %></td>
+    <td><%= education.since_year %></td>
+    <td><%= education.end_year %></td>
+    <td><%= link_to 'Show', education %></td>
+    <td><%= link_to 'Edit', edit_education_path(education) %></td>
+    <td><%= link_to 'Destroy', education, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Education', new_education_path %>

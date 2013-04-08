@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @resume.user_id %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @resume.phone %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @resume.address %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @resume.summary %>
+</p>
+
+
+<%= link_to 'Edit', edit_resume_path(@resume) %> |
+<%= link_to 'Back', resumes_path %>
