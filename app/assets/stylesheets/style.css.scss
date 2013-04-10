@@ -159,12 +159,13 @@ input.veilSearch{
 	-moz-box-shadow:inset 0px 0px 2px #666;
 }
 
-.bottomWrapper{
+#bottomWrapper{
 	position:relative;
 	height:100%;
 	min-height:100%;	
 	width:100%;
 	max-width:100%;
+	overflow:auto;
 }
 
 .cancelButton{
@@ -225,22 +226,10 @@ input.veilSearch{
 	}
 }
 
-#filterWrapper{
-	float:left;
-	display: inline-block;
-    position: static;
-    width: 20%;
-    height:100%;
-	overflow:hidden;
-	background:white;
-	margin:0;
-	
-	height:100%;
-}
 .container{
 	float:left;
 	width:80%;
-	border-left:solid 1px black;
+	border-left:solid 1px gray;
 }
 #resultWrapper{
 	display: inline-block;
@@ -250,30 +239,6 @@ input.veilSearch{
 	background:#999;
 	margin:0;
 	float:left;
-}
-
-#filterText{
-	margin: 30px 0 0 40px;
-	color:#333;
-	font-size:22px;
-	font-weight:300;
-}
-
-#filterText li{
-	a{
-	font-size:17px;	
-	line-height:1.2;
-	text-decoration:none;
-	color:darkgray;
-	margin-left:15px;	
-	font-family: "Open Sans";
-	font-weight:300;
-	}
-	a:hover{
-		font-size:19px;
-		color:black;
-	}
-	
 }
 
 #resourceThumb{
@@ -477,26 +442,6 @@ input.mainSearch:focus{
 
 }
 
-
-
-#bottomWrapper{
-	position:relative;
-	height:100%;
-	min-height:100%;	
-	width:100%;
-	max-width:100%;
-}
-
-#filterWrapper{
-	float:left;
-	display: inline-block;
-    position: static;
-    width: 20%;
-	overflow:hidden;
-	background:white;
-	margin:0;
-}
-
 .digg_pagination {
   background: white;
   cursor: default;
@@ -548,23 +493,22 @@ input.mainSearch:focus{
   *:first-child + html .digg_pagination {
     overflow: hidden; }
 
-.path{
-	font-size: small;
-	a{
-		color: black;
-		font-size: small;
-	}
-	ul.nav{
-		background-color: rgba(0, 0, 0, 0.2);
-		border-left: 15px;
-		border:2px solid;
-		border-radius:25px;
-		-moz-border-radius:25px; /* Old Firefox */
+.pathsHolder{
+	.pathsList{
 		display:none;
-		width: 45%;
-		background: gray;
-		li{
-			display: inline-block;
+		font-size: small;
+		a{
+			color: black;
+			font-size: small;
+			font-family: 'Open Sans';
+		}
+		ul.nav{
+			border:2px solid;
+			width: 45%;
+			background: gray;
+			li{
+				display: inline-block;
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <% javascript_include_tag :home %>
 <%= render 'shared/filter' %>
-<div class="container">
+<div id="homeContainer" class="container">
 	<div id="columns">
 		<%= render :partial => 'shared/pinresults', :collection => @resources, :as => 'resource' %>
 	</div>

@@ -1,9 +1,11 @@
+require 'will_paginate/array'
+
 class PathsController < ApplicationController
 
   # GET /paths
   # GET /paths.json
   def index
-    @paths = Path.all
+    @paths = Path.page(params[:page]).per_page(20)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @paths }
@@ -51,7 +53,7 @@ class PathsController < ApplicationController
     require_login
     @user = current_user
     @path = @user.paths.new(params[:path])
-
+    
     respond_to do |format|
       if @path.save
         format.html { redirect_to @path, notice: 'Path was successfully created.' }

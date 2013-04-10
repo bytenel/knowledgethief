@@ -174,7 +174,6 @@ var ResourceView = function(){
 	    		else
     			($(this).attr('id')=='nextslide') ? slideView(1) : slideView(-1);
     		}
-    		
     	});
     	$('.navigation-box').click(function(event){
     		event.preventDefault();
@@ -535,7 +534,6 @@ var ResourceView = function(){
 $(function(){
 	var rView = new ResourceView();
 	$('#columns').on('click', '.resourceTitle', function (){
-		
 		var link = $(this).attr('href');
 		//this is hacky as shit. split on /'s and check if its a resource link
 		var parts = link.split('/');

@@ -6,4 +6,12 @@ class Path < ActiveRecord::Base
   has_many :resources, :through => :in_paths
   scope :user_paths, lambda { |user| where("user_id = ?", user) }
 
+  def path_image_url
+  	@temp_resource = self.resources.order('created_at ASC').first
+  	if @temp_resource
+  		@temp_resource.snapshot.url
+  	else
+  		'http://knowledgethief.com/assets/resourceex.JPG'
+  	end
+  end
 end

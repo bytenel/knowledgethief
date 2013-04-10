@@ -22,15 +22,8 @@
 //= require introjs
 //= require jquery.masonry.min.js
 
-$('.path').click(function () {
-	var navbar = $(this).find('ul.nav');
-	if (navbar.is(":hidden")) {
-	$('.menu').css("background-color", "yellow");
-		navbar.slideDown("slow");
-	} else {
-		$('.path').css("background-color", "");
-		navbar.slideUp();
-	}
+$('.path_bttn').click(function () {
+	$(this).next().toggle();
 });
 
 function setFilter(val)
