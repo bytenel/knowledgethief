@@ -6,14 +6,14 @@ var AddResource = function(){
 			$('.addNewResourceForm').slideDown(400);
 		});
 		}else{
-			$('.bottomWrapper').slideUp(400, function(){
+			$('#bottomWrapper').slideUp(400, function(){
 				$('.addNewResourceForm').slideDown(400);
 			});	
 		}
 	};
 	remove = function(){
 		$('.addNewResourceForm').slideUp(400, function(){
-			$('.bottomWrapper').slideDown(400);
+			$('#bottomWrapper').slideDown(400);
 		});
 	};
 	return{

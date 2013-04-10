@@ -6,14 +6,14 @@ var AddQuestion = function(){
 			$('.addNewQuestionForm').slideDown(400);
 		});
 		}else{
-			$('.bottomWrapper').slideUp(400, function(){
+			$('#bottomWrapper').slideUp(400, function(){
 				$('.addNewQuestionForm').slideDown(400);
 			});	
 		}
 	};
 	remove = function(){
 		$('.addNewQuestionForm').slideUp(400, function(){
-			$('.bottomWrapper').slideDown(400);
+			$('#bottomWrapper').slideDown(400);
 		});
 	};
 	return{
