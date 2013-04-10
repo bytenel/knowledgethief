@@ -13,5 +13,8 @@ $(function(){
 		    queue: false
 		}
 	});*/
+	// $(".pathPin").click(function(){
+	// 	$(this).animate({'width' : '95%', 'height' : '500px'});
+	// });
 });
 
