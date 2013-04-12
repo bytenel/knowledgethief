@@ -30,10 +30,12 @@ class PathsController < ApplicationController
   # GET /paths/new
   # GET /paths/new.json
   def new
-    require_login
-
-    @path = current_user.paths.new
-
+    if current_user == nil?
+      @path = current_user.paths.new 
+    else
+      redirect_to new_user_session_path
+      return
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @path }

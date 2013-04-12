@@ -14,6 +14,7 @@ var ResourceView = function(){
     var slidesInner = $('#slideInner');
     var slideHistory = new Array(); //left 0; right 1;
     var historyStackSize = 0;
+    var isPath_link = false;
 	init = function(url,new_resource_id){
 		resource_id = new_resource_id;
 		setKeyBindings();
@@ -24,10 +25,17 @@ var ResourceView = function(){
 		// Remove scrollbar in JS
   		
   		slideWidth = $(window).width();
-		$('.resourceTitle').each(function(){
-  			searchResultURLS.push($(this).attr('href'));
-  			$('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
-		});
+        if(isPath_link){
+             $.each(searchResultURLS, function(index, value){
+                $('.searchList').append("<li>" +value +" </li>").hide().fadeIn();
+             });
+        }else{
+            $('.resourceTitle').each(function(){
+                searchResultURLS.push($(this).attr('href'));
+                $('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
+            });
+        }
+
 		var isFirst = true;
 		for(var i = 0 ; i< searchResultURLS.length; i++){
 			if(searchResultURLS[i] === url){
@@ -490,7 +498,11 @@ var ResourceView = function(){
 				alert("error with comment");
 			}
 		});
-	}
+	},
+    setPaths = function(pathURLS){
+        searchResultURLS = pathURLS;
+        isPath_link = true;
+    },
 	vote = function(vote){
 		$.ajax({
 			type: "post",
@@ -527,7 +539,8 @@ var ResourceView = function(){
 		logUserEndTime : logUserEndTime,
 		saveComment : saveComment,
 		toggleBar : toggleBar,
-		setKeyBindings : setKeyBindings
+		setKeyBindings : setKeyBindings,
+        setPaths  : setPaths
 	};
 };
 
@@ -550,5 +563,28 @@ $(function(){
 		}
 		return false;
 	});
+    $('.pathPin').on('click', '.playPath', function(){
+        pathLinks = new Array();
+        res_ids = new Array();
+        $(this).parents('.pathButtons').siblings('.pathResultsDetails').find('.pathLinkItems').each(function(){
+            $current_resource = $(this).find('a');
+            pathLinks.push($current_resource.attr('href'));
+            res_ids.push($current_resource.attr('value'));
+        });
+        var path_link = pathLinks[0];
+        var get_resource_id = res_ids[0];
+        var path_parts = path_link.split('/');
+        if(path_parts[1] == "resources"){
+            return true;
+        }else{
+            rView.setPaths(pathLinks);
+            rView.init(path_link, get_resource_id);
+            rView.setKeyBindings();
+            rView.comments(get_resource_id);
+            rView.logUser(get_resource_id);
+            return false;
+        }
+        return false;
+    });
 
 });

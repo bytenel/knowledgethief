@@ -13,8 +13,28 @@ $(function(){
 		    queue: false
 		}
 	});*/
-	// $(".pathPin").click(function(){
-	// 	$(this).animate({'width' : '95%', 'height' : '500px'});
-	// });
+	var pathDetailBinds = function(){
+ 		var $pins = $('.pathPin'),timeout;
+ 		$('#pathsColumns').on( 'click', '.pathDetails', function( event ) {   
+		    var $pin = $(this).parents('.pathPin');
+		    clearTimeout( timeout );
+		    timeout = setTimeout( function() {  
+		        if( $pin.hasClass('active') ){
+		        	 $pin.removeClass('active');
+		        	 $pin.find(".detailsExpand").text("Show Details");
+                     $pin.find('.pathResultsDetails').fadeOut();
+                     $pin.find('.pathPlayButton').fadeOut();
+		        	 return false;
+		        }
+		        $('.pathPin').not($pin).removeClass('active').find('.pathResultsDetails').fadeOut();
+                $('.pathPin').not($pin).find('.pathPlayButton').fadeOut();
+		        $pin.addClass('active');
+		        $pin.find('.detailsExpand').text("Hide Details");
+                $pin.find('.pathResultsDetails').fadeIn();
+                $pin.find('.pathPlayButton').fadeIn();
+		    }, 75 );
+		});
+ 	};
+ 	pathDetailBinds();
 });
 
