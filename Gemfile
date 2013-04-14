@@ -12,6 +12,9 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 # Votable gem
 gem 'acts_as_votable'
 
+# Ancestry for comments
+gem 'ancestry'
+
 # Devise
 gem 'devise'
 

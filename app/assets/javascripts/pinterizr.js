@@ -143,7 +143,7 @@ var Pinterizr = function () {
 	};
 };
 $(function(){
-	var pinterest = new Pinterizr();
+	//var pinterest = new Pinterizr();
 	//pinterest.init();
 	$(".pin").hover(
 		  function () {

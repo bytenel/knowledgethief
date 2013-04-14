@@ -22,11 +22,11 @@ $(function(){
 		        if( $pin.hasClass('active') ){
 		        	 $pin.removeClass('active');
 		        	 $pin.find(".detailsExpand").text("Show Details");
-                     $pin.find('.pathResultsDetails').fadeOut();
+                     $pin.find('.pathResultsDetails').css('display','none');
                      $pin.find('.pathPlayButton').fadeOut();
 		        	 return false;
 		        }
-		        $('.pathPin').not($pin).removeClass('active').find('.pathResultsDetails').fadeOut();
+		        $('.pathPin').not($pin).removeClass('active').find('.pathResultsDetails').css('display','none');
                 $('.pathPin').not($pin).find('.pathPlayButton').fadeOut();
 		        $pin.addClass('active');
 		        $pin.find('.detailsExpand').text("Hide Details");

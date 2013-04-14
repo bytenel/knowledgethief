@@ -19,17 +19,25 @@
             <% end %>
           </div><!--/.subOptions -->
         </div><!--/. postedBy-->
-      </div>
+      </div> <!--/ pathsInnerLeft -->
 
       <div class="pathResultsDetails">
         <h2>Resources in Path</h2>
         <ul class="pathLinks">
           <% path.resources.each do |resource| %>
-              <li class="pathLinkItems"><h3><%= link_to resource.title.titleize,url_for(resource.link),:value=>resource.id, :class => 'resourceTitle' %></h3><%= "- #{resource.description}"%> </li>
+              <li class="pathLinkItems">
+                <div class='pathresourceImage'>
+                  <%= image_tag(resource.snapshot.url, :width => '100%') %>
+                </div>
+                <div class="pathresourceDescription">
+                  <h3><%= link_to resource.title.titleize,url_for(resource.link),:value=>resource.id, :class => 'resourceTitle' %></h3>
+                  <%= "#{resource.description}"%>
+                </div>
+              </li>
           <% end %>
         </ul>
 
-      </div>
+      </div><!--/. pathResultDetails -->
       <div class="pathButtons">
         <div class="pathDetails">
           <a class="detailsExpand" href="javascript:;">Show Details</a>

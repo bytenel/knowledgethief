@@ -1,7 +1,6 @@
 require 'will_paginate/array'
 
 class PathsController < ApplicationController
-
   # GET /paths
   # GET /paths.json
   def index
@@ -20,6 +19,7 @@ class PathsController < ApplicationController
   # GET /paths/1.json
   def show
     @path = Path.find(params[:id])
+    @resources = @path.resources
 
     respond_to do |format|
       format.html # show.html.erb
@@ -30,16 +30,12 @@ class PathsController < ApplicationController
   # GET /paths/new
   # GET /paths/new.json
   def new
-    if current_user == nil?
+  if user_signed_in?
       @path = current_user.paths.new 
     else
       redirect_to new_user_session_path
-      return
-    end
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @path }
-    end
+  end
+
   end
 
   # GET /paths/1/edit

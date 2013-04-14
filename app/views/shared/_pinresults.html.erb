@@ -22,7 +22,7 @@
 	</div> <!--/. resourceButtons -->
 	<div class="resourceContentHolder">
 		<div class="resourceImage">
-			 <%= image_tag(resource.snapshot.url, :class=>"thumbImg") %> 
+			 <%= link_to image_tag(resource.snapshot.url, :class=>"thumbImg"), url_for(resource.link), :value => resource.id  %>
 		</div>
 		<div id="resourceInfo">
 			<div class="upvotesCount">
