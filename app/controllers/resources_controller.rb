@@ -45,7 +45,9 @@ class ResourcesController < ApplicationController
         flash[:alert] = "This resource has already been added!"
       end
       # No link provided, so this must be a question
+
     else
+      raise params[:resource]
       @resource = Resource.new(params[:resource])
       @resource.update_attributes(:active => true)
       @resource.save

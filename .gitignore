@@ -35,5 +35,7 @@ _backup/
 KTDescription3.pdf
 
 # Rubymine bullshit
-*/.idea/workspace.xml 
-*/.idea/tasks.xml
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/*.xml
+/.idea/*.iml
