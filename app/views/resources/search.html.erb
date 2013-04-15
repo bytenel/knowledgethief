@@ -3,7 +3,7 @@
 <div id="searchContainer" class="container">
 	<div id="columns">
 		<%= (render :partial => 'shared/pinresults', :collection => @resources, :as => 'resource') || "Sorry, no results returned. Please try again!" %>
-		<div style="clear:both;">
+		<div style="clear:both;"></div>
 		<%= will_paginate @resources %>
 	</div>
 </div>

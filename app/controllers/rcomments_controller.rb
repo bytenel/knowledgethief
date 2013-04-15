@@ -35,10 +35,9 @@ class RcommentsController < ApplicationController
 
   def forresource
     resource_id = params[:id]
-    #@rcomments = Comment.where(:resource_id => resource_id)
-    @rcomments = Rcomment.where(:resource_id => resource_id)
+    @resource = Resource.find_by_id(resource_id)
+    @rcomments = @resource.rcomments
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Thank you for voting" }
       format.json { render :status=>200, :json=>{:success=>true, :rcomments => @rcomments}}
     end
   end

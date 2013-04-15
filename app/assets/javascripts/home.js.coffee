@@ -6,5 +6,4 @@ $(window).scroll ->
         window.pagination_loading = true
         $('.pagination').text('Fetching more resources...')
         $.getScript(url).done -> 
-        	window.pagination_loading = false
-        	
+          window.pagination_loading = false

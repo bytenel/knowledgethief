@@ -20,8 +20,8 @@
       <%= @resource.tag_list %>
     </div>
     <div class="answersHolder">
+      Comments:
       <%= nested_rcomments @rcomments.arrange(:order => :created_at) %>
       <%= render "rcomments/form" %>
-      <%= link_to 'New Comment', new_rcomment_path %>
     </div>
   </div>

@@ -70,7 +70,20 @@
     padding:25px;
     background: #f8f8f8;
   }
-
+  .commentActions{
+    display:inline-block;
+    font-size: 12px;
+  }
+  form{
+    margin-top:10px;
+  }
+}
+.rcomment{
+  background: #fbfbfb;
+  border: 1px solid lightgray;
+  width: 100%;
+  overflow: auto;
+  padding-left:10px;
 }
 .nested_rcomments {
   margin-left: 30px;
@@ -78,4 +91,11 @@
 
 .nested_rcomments .nested_rcomments .nested_rcomments .nested_rcomments {
   margin-left: 0;
+}
+.veilComments{
+  background: #1f1f1f;
+  border: 1px solid darkgray;
+  width: 100%;
+  overflow: auto;
+  padding-left:10px;
 }

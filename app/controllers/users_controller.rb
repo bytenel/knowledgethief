@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 			#return current_user
 			@rc = Resource.where(:user_id => current_user.id)
 			#@rc = 
-			@comments = Comment.where(:user_id => current_user.id)
+			@comments = Rcomment.where(:user_id => current_user.id)
 			@paths = current_user.paths
 			#@paths = Path.where()
 		else

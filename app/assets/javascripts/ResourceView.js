@@ -391,21 +391,21 @@ var ResourceView = function(){
 			success: function( objResponse ){
 				// Check to see if request was successful.
 				$('.commentsList').empty();
-				$.each(objResponse.comments, function(i, item) {
+				$.each(objResponse.rcomments, function(i, item) {
 					  var today = new Date();
-					  var post =item.updated_at;
+					  var post =Date.parse(item.created_at);
 					  //  date = Date.parse(DateToValue);
-					  difference = (post-today)/(1000*60);
+					  difference = (today - post)/(1000*60);
 					  var timediff = 0;
 					  if(difference < 60){
-				        timediff = difference + " minutes ago";
+				        timediff = Math.floor(difference) + " minutes ago";
 			    	  }else if(difference < 1440 && difference >= 60){
-					    timediff = difference/60 + " hours ago";
+					    timediff = Math.floor(difference/60) + " hours ago";
 					  }else if(difference >= 1440){
-					    timediff = difference/(60*24) + " days ago";
+					    timediff = Math.floor(difference/(60*24)) + " days ago";
 					  }
 
-    				$('.commentsList').append("<li>" +item.content +timediff +"  minutes ago</li>").hide().fadeIn();
+    				$('.commentsList').append("<li class='veilComments'> " +item.content +"  -  " +timediff+"</li>").hide().fadeIn();
 				});
 			},
 			error: function( objRequest, strError ){
