@@ -23,7 +23,7 @@
 //= require jquery.masonry.min.js
 
 $('.path_bttn').click(function () {
-	$(this).next().toggle();
+    $(this).next().toggle();
 });
 
 function setFilter(val)
