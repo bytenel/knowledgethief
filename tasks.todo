@@ -1,14 +1,4 @@
 Today:
- ☐ add in pgsearch for paths and resources within paths, and users
-
- public and private paths and edit path searching
-
- profanity filter
-
- ☐ Add in migration for having position within path for each resource added
- ☐ Add in the ability to edit the position in the path for each resource added
-
- ☐ Add in completion of resource for viewing each one in path
-
+intro.js
 ☐ build unit tests in RSpec
 ☐ build unit tests in Jasmine

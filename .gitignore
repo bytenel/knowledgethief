@@ -7,6 +7,10 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore rubymine shit
+.idea/
+idea/
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /app/views/.DS_Store

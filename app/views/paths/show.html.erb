@@ -9,8 +9,9 @@
     <p>
       <%= @path.content %>
     </p>
-
-    <%= link_to 'Edit', edit_path_path(@path) %> |
+    <% if @path.user == current_user %>
+      <%= link_to 'Edit', edit_path_path(@path) %> |
+    <% end %>
     <%= link_to 'Back', paths_path %>
 
     <h1>Resources: </h1>
