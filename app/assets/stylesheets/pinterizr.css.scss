@@ -81,25 +81,25 @@
 	}
 	/* Blur Transitions */
 	-webkit-transition: 
-		opacity 0.4s linear, 
-		-webkit-transform 0.4s ease-in-out, 
-		box-shadow 0.4s ease-in-out;
+		opacity 0.2s linear,
+		-webkit-transform 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 	-moz-transition: 
-		opacity 0.4s linear, 
-		-moz-transform 0.4s ease-in-out, 
-		box-shadow 0.4s ease-in-out;
+		opacity 0.2s linear,
+		-moz-transform 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 	-o-transition: 
-		opacity 0.4s linear, 
-		-o-transform 0.4s ease-in-out, 
-		box-shadow 0.4s ease-in-out;
+		opacity 0.2s linear,
+		-o-transform 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 	-ms-transition: 
-		opacity 0.4s linear, 
-		-ms-transform 0.4s ease-in-out, 
-		box-shadow 0.4s ease-in-out;
+		opacity 0.2s linear,
+		-ms-transform 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
 	transition: 
-		opacity 0.4s linear, 
-		transform 0.4s ease-in-out, 
-		box-shadow 0.4s ease-in-out;
+		opacity 0.2s linear,
+		transform 0.2s ease-in-out,
+		box-shadow 0.2s ease-in-out;
         
     .resourceTitle, 
     .resourceDescription,

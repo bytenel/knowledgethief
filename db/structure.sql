@@ -231,39 +231,6 @@ ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE comments (
-    id integer NOT NULL,
-    content text,
-    user_id integer,
-    resource_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
-
-
---
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -589,6 +556,40 @@ CREATE SEQUENCE pg_search_documents_id_seq
 --
 
 ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
+
+
+--
+-- Name: rcomments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rcomments (
+    id integer NOT NULL,
+    content text,
+    user_id integer,
+    resource_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying(255)
+);
+
+
+--
+-- Name: rcomments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rcomments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rcomments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rcomments_id_seq OWNED BY rcomments.id;
 
 
 --
@@ -1034,13 +1035,6 @@ ALTER TABLE ONLY authentications ALTER COLUMN id SET DEFAULT nextval('authentica
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
@@ -1098,6 +1092,13 @@ ALTER TABLE ONLY paths ALTER COLUMN id SET DEFAULT nextval('paths_id_seq'::regcl
 --
 
 ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rcomments ALTER COLUMN id SET DEFAULT nextval('rcomments_id_seq'::regclass);
 
 
 --
@@ -1221,7 +1222,7 @@ ALTER TABLE ONLY authentications
 -- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comments
+ALTER TABLE ONLY rcomments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
@@ -1467,6 +1468,13 @@ CREATE UNIQUE INDEX index_admin_users_on_reset_password_token ON admin_users USI
 --
 
 CREATE INDEX index_audits_on_created_at ON audits USING btree (created_at);
+
+
+--
+-- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_ancestry ON rcomments USING btree (ancestry);
 
 
 --
@@ -1776,3 +1784,7 @@ INSERT INTO schema_migrations (version) VALUES ('20130304044437');
 INSERT INTO schema_migrations (version) VALUES ('20130304063107');
 
 INSERT INTO schema_migrations (version) VALUES ('20130304064110');
+
+INSERT INTO schema_migrations (version) VALUES ('20130414045909');
+
+INSERT INTO schema_migrations (version) VALUES ('20130414105355');

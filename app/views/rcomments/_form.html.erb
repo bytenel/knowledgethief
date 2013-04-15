@@ -1,0 +1,8 @@
+<%= form_for @rcomment do |f| %>
+    <%= f.hidden_field :parent_id %>
+    <%= f.hidden_field :resource_id %>
+    <p>
+      <%= f.text_area :content, :rows => 3 %>
+    </p>
+    <p><%= f.submit "Post Comment" %></p>
+<% end %>

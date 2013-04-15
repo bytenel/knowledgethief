@@ -385,7 +385,7 @@ var ResourceView = function(){
 	comments = function(new_resource_id){
 		$.ajax({
 			type: "post",
-			url: "/comments/"+new_resource_id +"/forresource",
+			url: "/rcomments/"+new_resource_id +"/forresource",
 			dataType: "json",
 			// Define request handlers.
 			success: function( objResponse ){
@@ -457,7 +457,7 @@ var ResourceView = function(){
 		console.log(commentText);
 		$.ajax({
 			type: "post",
-			url: "/comments",
+			url: "/rcomments",
 			data: {
 				content : commentText,
 				resource : resource_id

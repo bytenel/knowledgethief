@@ -23,7 +23,7 @@ class Resource < ActiveRecord::Base
   has_many :paths, :through => :in_paths
 
   has_many :views, :class_name => 'UserResourceView'
-  has_many :comments
+  has_many :rcomments
   has_reputation :votes, source: :user, aggregated_by: :sum
 
   attr_accessible :title, :description, :link, :tag_list,

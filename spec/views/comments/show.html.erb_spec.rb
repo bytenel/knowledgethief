@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "comments/show" do
+describe "rcomments/show" do
   before(:each) do
     @comment = assign(:comment, stub_model(Comment,
       :content => "MyText",
