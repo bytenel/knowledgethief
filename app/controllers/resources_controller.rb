@@ -50,7 +50,8 @@ class ResourcesController < ApplicationController
       @resource.save
       @resource.update_attribute(:link, "/resources/"+@resource.id.to_s)
     end
-    if(!current_user.facebook.access_token.nil?)
+    #@authen = Authentication.find_by_user_id_and_provider(current_user.id, 'facebook')
+    if(!current_user.facebook.access_token.nil? && current_user.publish_actions)
       current_user.facebook.put_wall_post("I posted a resource on www.knowledgethief.com")
     end
     redirect_to home_path

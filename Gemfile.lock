@@ -400,6 +400,7 @@ DEPENDENCIES
   guard
   guard-rspec
   guard-spork
+  httparty
   imgkit (~> 1.3.7)
   introjs-rails
   jquery-rails

@@ -10,11 +10,8 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :resume_id %><br />
-    <%= f.number_field :resume_id %>
-  </div>
+  <%= f.hidden_field :resume_id, :value => @resume.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <div class="field">
     <%= f.label :city %><br />
     <%= f.text_field :city %>
@@ -22,10 +19,6 @@
   <div class="field">
     <%= f.label :state %><br />
     <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
   </div>
   <div class="field">
     <%= f.label :school_name %><br />

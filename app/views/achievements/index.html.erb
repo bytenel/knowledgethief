@@ -1,6 +1,16 @@
+<div style="padding-left:20%">
 <h1>Listing achievements</h1>
 
-<table>
+<% @achievements.each do |ach|%>
+  Summany: <%= ach.summary %><br>
+  <%= link_to image_tag('edit_button.png', :size => '70x30'), edit_achievement_path(ach) %>
+  <%= link_to image_tag('delete_button.png', :size => '70x30'), ach, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+<%end%>
+<%= link_to image_tag('back_button.png', :size => '70x30'), user_profile_path %>
+<%= link_to image_tag('view_button.png', :size => '70x30'), user_resume_path %>
+<%= link_to image_tag('new_button.png', :size => '70x30'), new_achievement_path %>
+
+<!--table>
   <tr>
     <th>Summary</th>
     <th></th>
@@ -8,16 +18,17 @@
     <th></th>
   </tr>
 
-<% @achievements.each do |achievement| %>
+<%# @achievements.each do |achievement| %>
   <tr>
-    <td><%= achievement.summary %></td>
-    <td><%= link_to 'Show', achievement %></td>
-    <td><%= link_to 'Edit', edit_achievement_path(achievement) %></td>
-    <td><%= link_to 'Destroy', achievement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%#= achievement.summary %></td>
+    <td><%#= link_to 'Show', achievement %></td>
+    <td><%#= link_to 'Edit', edit_achievement_path(achievement) %></td>
+    <td><%#= link_to 'Destroy', achievement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-<% end %>
+<%# end %>
 </table>
 
-<br />
+<br /-->
 
-<%= link_to 'New Achievement', new_achievement_path %>
+<%#= link_to 'New Achievement', new_achievement_path %>
+</div>

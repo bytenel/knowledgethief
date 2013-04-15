@@ -17,6 +17,7 @@ gem 'devise'
 
 #koala
 gem 'koala'
+gem "httparty"
 
 gem 'activeadmin'
 

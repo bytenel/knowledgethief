@@ -1,9 +1,34 @@
+<div style="padding-left:15%;padding-right:15%;">
 <h1>Listing experiences</h1>
+<% @experiences.each do |exp|%>
+<div id='edu'>
+    <div id='eduleft'class='resume'>
+      <%= exp.institute_name %>
+    </div>
+    <div id='eduright'class='resume'>
+        <%= exp.since_year %>-<%=exp.end_year%>
+    </div>
+    <div style="clear:both;"/></div>
+    <div id='eduleft'class='resume'>
+      <%= exp.title %>
+    </div>
+    <div id='eduright'class='resume'>
+      <%= exp.city%>, <%= exp.state %>
+    </div>
+    <div style="clear:both;"/></div>
+    <div class='resume'>
+    <%= exp.summary%>
+    </div>
+</div>
+<%= link_to image_tag('edit_button.png', :size => '70x30'), edit_experience_path(exp) %>
+  <%= link_to image_tag('delete_button.png', :size => '70x30'), exp, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+<%end%>
+<%= link_to image_tag('back_button.png', :size => '70x30'), user_profile_path %>
+<%= link_to image_tag('view_button.png', :size => '70x30'), user_resume_path %>
+<%= link_to image_tag('new_button.png', :size => '70x30'), new_experience_path %>
 
-<table>
+<!--table>
   <tr>
-    <th>Resume</th>
-    <th>User</th>
     <th>Institute name</th>
     <th>City</th>
     <th>State</th>
@@ -16,24 +41,23 @@
     <th></th>
   </tr>
 
-<% @experiences.each do |experience| %>
+<% #@experiences.each do |experience| %>
   <tr>
-    <td><%= experience.resume_id %></td>
-    <td><%= experience.user_id %></td>
-    <td><%= experience.institute_name %></td>
-    <td><%= experience.city %></td>
-    <td><%= experience.state %></td>
-    <td><%= experience.since_year %></td>
-    <td><%= experience.end_year %></td>
-    <td><%= experience.title %></td>
-    <td><%= experience.summary %></td>
-    <td><%= link_to 'Show', experience %></td>
-    <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
-    <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%#= experience.institute_name %></td>
+    <td><%#= experience.city %></td>
+    <td><%#= experience.state %></td>
+    <td><%#= experience.since_year %></td>
+    <td><%#= experience.end_year %></td>
+    <td><%#= experience.title %></td>
+    <td><%#= experience.summary %></td>
+    <td><%#= link_to 'Show', experience %></td>
+    <td><%#= link_to 'Edit', edit_experience_path(experience) %></td>
+    <td><%#= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-<% end %>
+<%# end %>
 </table>
 
-<br />
+<br /-->
 
-<%= link_to 'New Experience', new_experience_path %>
+<%#= link_to 'New Experience', new_experience_path %>
+</div>

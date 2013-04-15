@@ -1,9 +1,18 @@
-<h1>Listing skills</h1>
+<div style="padding-left:20%">
 
-<table>
+<h1>Listing skills</h1>
+<% @skills.each do |ski|%>
+  Skill: <%= ski.name%> <br>
+  Summary: <%= ski.summary %><br>
+  <%= link_to image_tag('edit_button.png', :size => '70x30'), edit_skill_path(ski) %>
+  <%= link_to image_tag('delete_button.png', :size => '70x30'), ski, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+<%end%>
+<%= link_to image_tag('back_button.png', :size => '70x30'), user_profile_path %>
+<%= link_to image_tag('view_button.png', :size => '70x30'), user_resume_path %>
+<%= link_to image_tag('new_button.png', :size => '70x30'), new_skill_path %>
+
+<!--table>
   <tr>
-    <th>Resume</th>
-    <th>User</th>
     <th>Name</th>
     <th>Summary</th>
     <th></th>
@@ -11,19 +20,18 @@
     <th></th>
   </tr>
 
-<% @skills.each do |skill| %>
+<%# @skills.each do |skill| %>
   <tr>
-    <td><%= skill.resume_id %></td>
-    <td><%= skill.user_id %></td>
-    <td><%= skill.name %></td>
-    <td><%= skill.summary %></td>
-    <td><%= link_to 'Show', skill %></td>
-    <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
-    <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%#= skill.name %></td>
+    <td><%#= skill.summary %></td>
+    <td><%#= link_to 'Show', skill %></td>
+    <td><%#= link_to 'Edit', edit_skill_path(skill) %></td>
+    <td><%#= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-<% end %>
+<%# end %>
 </table>
 
-<br />
+<br /-->
 
-<%= link_to 'New Skill', new_skill_path %>
+<%#= link_to 'New Skill', new_skill_path %>
+</div>

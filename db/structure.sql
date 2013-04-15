@@ -43,6 +43,39 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE achievements (
+    id integer NOT NULL,
+    summary character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    user_id integer,
+    resume_id integer
+);
+
+
+--
+-- Name: achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE achievements_id_seq OWNED BY achievements.id;
+
+
+--
 -- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -303,6 +336,44 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
+-- Name: educations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE educations (
+    id integer NOT NULL,
+    resume_id integer,
+    city character varying(255),
+    state character varying(255),
+    user_id integer,
+    school_name character varying(255),
+    major character varying(255),
+    since_year character varying(255),
+    end_year character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: educations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE educations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: educations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE educations_id_seq OWNED BY educations.id;
+
+
+--
 -- Name: engage_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -472,6 +543,45 @@ CREATE SEQUENCE engage_votes_id_seq
 --
 
 ALTER SEQUENCE engage_votes_id_seq OWNED BY engage_votes.id;
+
+
+--
+-- Name: experiences; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE experiences (
+    id integer NOT NULL,
+    resume_id integer,
+    user_id integer,
+    institute_name character varying(255),
+    city character varying(255),
+    state character varying(255),
+    since_year character varying(255),
+    end_year character varying(255),
+    title character varying(255),
+    summary character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: experiences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE experiences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: experiences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE experiences_id_seq OWNED BY experiences.id;
 
 
 --
@@ -666,6 +776,40 @@ ALTER SEQUENCE resources_id_seq OWNED BY resources.id;
 
 
 --
+-- Name: resumes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE resumes (
+    id integer NOT NULL,
+    user_id integer,
+    phone character varying(255),
+    address character varying(255),
+    summary character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: resumes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE resumes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resumes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE resumes_id_seq OWNED BY resumes.id;
+
+
+--
 -- Name: rs_evaluations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -778,6 +922,40 @@ ALTER SEQUENCE rs_reputations_id_seq OWNED BY rs_reputations.id;
 CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
 );
+
+
+--
+-- Name: skills; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE skills (
+    id integer NOT NULL,
+    resume_id integer,
+    user_id integer,
+    name character varying(255),
+    summary character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: skills_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE skills_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE skills_id_seq OWNED BY skills.id;
 
 
 --
@@ -999,6 +1177,13 @@ ALTER SEQUENCE votes_id_seq OWNED BY votes.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY achievements ALTER COLUMN id SET DEFAULT nextval('achievements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY active_admin_comments ALTER COLUMN id SET DEFAULT nextval('active_admin_comments_id_seq'::regclass);
 
 
@@ -1048,6 +1233,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY educations ALTER COLUMN id SET DEFAULT nextval('educations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY engage_comments ALTER COLUMN id SET DEFAULT nextval('engage_comments_id_seq'::regclass);
 
 
@@ -1077,6 +1269,13 @@ ALTER TABLE ONLY engage_user_profiles ALTER COLUMN id SET DEFAULT nextval('engag
 --
 
 ALTER TABLE ONLY engage_votes ALTER COLUMN id SET DEFAULT nextval('engage_votes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY experiences ALTER COLUMN id SET DEFAULT nextval('experiences_id_seq'::regclass);
 
 
 --
@@ -1118,6 +1317,13 @@ ALTER TABLE ONLY resources ALTER COLUMN id SET DEFAULT nextval('resources_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY resumes ALTER COLUMN id SET DEFAULT nextval('resumes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY rs_evaluations ALTER COLUMN id SET DEFAULT nextval('rs_evaluations_id_seq'::regclass);
 
 
@@ -1133,6 +1339,13 @@ ALTER TABLE ONLY rs_reputation_messages ALTER COLUMN id SET DEFAULT nextval('rs_
 --
 
 ALTER TABLE ONLY rs_reputations ALTER COLUMN id SET DEFAULT nextval('rs_reputations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY skills ALTER COLUMN id SET DEFAULT nextval('skills_id_seq'::regclass);
 
 
 --
@@ -1175,6 +1388,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY votes ALTER COLUMN id SET DEFAULT nextval('votes_id_seq'::regclass);
+
+
+--
+-- Name: achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY achievements
+    ADD CONSTRAINT achievements_pkey PRIMARY KEY (id);
 
 
 --
@@ -1234,6 +1455,14 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
+-- Name: educations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY educations
+    ADD CONSTRAINT educations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: engage_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1271,6 +1500,14 @@ ALTER TABLE ONLY engage_user_profiles
 
 ALTER TABLE ONLY engage_votes
     ADD CONSTRAINT engage_votes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: experiences_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY experiences
+    ADD CONSTRAINT experiences_pkey PRIMARY KEY (id);
 
 
 --
@@ -1314,6 +1551,14 @@ ALTER TABLE ONLY resources
 
 
 --
+-- Name: resumes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY resumes
+    ADD CONSTRAINT resumes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rs_evaluations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1335,6 +1580,14 @@ ALTER TABLE ONLY rs_reputation_messages
 
 ALTER TABLE ONLY rs_reputations
     ADD CONSTRAINT rs_reputations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY skills
+    ADD CONSTRAINT skills_pkey PRIMARY KEY (id);
 
 
 --
@@ -1776,3 +2029,15 @@ INSERT INTO schema_migrations (version) VALUES ('20130304044437');
 INSERT INTO schema_migrations (version) VALUES ('20130304063107');
 
 INSERT INTO schema_migrations (version) VALUES ('20130304064110');
+
+INSERT INTO schema_migrations (version) VALUES ('20130408061332');
+
+INSERT INTO schema_migrations (version) VALUES ('20130408061532');
+
+INSERT INTO schema_migrations (version) VALUES ('20130408061751');
+
+INSERT INTO schema_migrations (version) VALUES ('20130408061918');
+
+INSERT INTO schema_migrations (version) VALUES ('20130408062101');
+
+INSERT INTO schema_migrations (version) VALUES ('20130411093719');

@@ -1,8 +1,19 @@
+<div style="padding-left:20%">
 <h1>Listing resumes</h1>
+<% @resumes.each do |resume| %>
+<div id='user-resume' class="resume">
+  Phone: <%= resume.phone%><br>
+  Address: <%= resume.address %><br>
+  About me: <%= resume.summary%> <br>
+  <%= link_to image_tag('edit_button.png', :size => '70x30'), edit_resume_path(resume) %>
+  
+</div>
+<% end%>
+<%= link_to image_tag('back_button.png', :size => '70x30'), user_profile_path %>
+  <%= link_to image_tag('view_button.png', :size => '70x30'), user_resume_path(resume) %>
 
-<table>
+<!--table>
   <tr>
-    <th>User</th>
     <th>Phone</th>
     <th>Address</th>
     <th>Summary</th>
@@ -10,20 +21,18 @@
     <th></th>
     <th></th>
   </tr>
-
-<% @resumes.each do |resume| %>
+<%# @resumes.each do |resume| %>
   <tr>
-    <td><%= resume.user_id %></td>
-    <td><%= resume.phone %></td>
-    <td><%= resume.address %></td>
-    <td><%= resume.summary %></td>
-    <td><%= link_to 'Show', resume %></td>
-    <td><%= link_to 'Edit', edit_resume_path(resume) %></td>
-    <td><%= link_to 'Destroy', resume, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%#= resume.phone %></td>
+    <td><%#= resume.address %></td>
+    <td><%#= resume.summary %></td>
+    <td><%#= link_to 'Show', resume %></td>
+    <td><%#= link_to 'Edit', edit_resume_path(resume) %></td>
+    <td><%#= link_to 'Destroy', resume, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-<% end %>
+<%# end %>
 </table>
 
 <br />
-
-<%= link_to 'New Resume', new_resume_path %>
+<%#= link_to 'New Resume', new_resume_path %>
+</div-->

@@ -12,7 +12,11 @@ class User < ActiveRecord::Base
   has_many :evaluations, class_name: "RSEvaluation", as: :source
   has_many :paths
   has_reputation :votes, source: {reputation: :votes, of: :resources}, aggregated_by: :sum
-
+  has_one  :resume
+  has_many :educations, :through => :resume
+  has_many :experiences, :through => :resume
+  has_many :skills, :through => :resume
+  has_many :achievements, :through => :resume
   #acts_as_reader
 
   # has_reputation :karma,
@@ -26,6 +30,15 @@ class User < ActiveRecord::Base
     viewed_resources.order('user_resource_views.created_at DESC')
   end
 
+  def publish_actions
+    auth = Authentication.find_by_user_id_and_provider(self.id, 'facebook')
+    ret = HTTParty.get('https://graph.facebook.com/' + "#{auth.uid}" + '/permissions' + '?access_token=' + "#{self.oauth_token}")
+    if ret.parsed_response['data'].include?('publish_actions') && ret.parsed_response['data']['publish_actions'] == 1
+      return true
+    else
+      return false
+    end
+  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -56,7 +69,7 @@ class User < ActiveRecord::Base
     self.gender = omniauth['extra']['raw_info']['gender'] if gender.blank?
     self.oauth_token = omniauth['credentials']['token'] unless omniauth['credentials']['token'].nil?#if oauth_token.blank?
     self.hometown_name = omniauth['extra']['raw_info']['hometown']['name'] unless omniauth['extra']['raw_info']['hometown'].nil?
-
+    #self.roll = 'user'
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 

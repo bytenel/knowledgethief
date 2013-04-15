@@ -10,11 +10,8 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+ 
   <div class="field">
     <%= f.label :phone %><br />
     <%= f.text_field :phone %>
@@ -25,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :summary %><br />
-    <%= f.text_field :summary %>
+    <%= f.text_area :summary, :style => "width:30%;height:10%", :class => 'text_field' %>
   </div>
   <div class="actions">
     <%= f.submit %>

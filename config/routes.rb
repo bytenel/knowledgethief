@@ -45,16 +45,20 @@ Kt::Application.routes.draw do
   resources :comments do
      member {post :forresource}
   end
+
   resources :userResourceView
+
   get "home/index"
+
   devise_scope :user do
     get "/login" => "devise/sessions#new"
 
   end
+
   devise_for :user, :path => '', :path_names => {:sign_up => "register" }
 
   match '/user_profile', :to =>'users#index'
-
+  match '/user_resume', :to => 'users#resume'
   match '/ajaxProfile', :to =>'users#ajaxProfile'
   match '/ajaxPaths', :to =>'paths#ajaxPaths'
 

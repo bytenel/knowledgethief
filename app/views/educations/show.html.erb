@@ -1,9 +1,6 @@
-<p id="notice"><%= notice %></p>
+<div style="padding-left:20%">
 
-<p>
-  <b>Resume:</b>
-  <%= @education.resume_id %>
-</p>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>City:</b>
@@ -13,11 +10,6 @@
 <p>
   <b>State:</b>
   <%= @education.state %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @education.user_id %>
 </p>
 
 <p>
@@ -43,3 +35,4 @@
 
 <%= link_to 'Edit', edit_education_path(@education) %> |
 <%= link_to 'Back', educations_path %>
+</div>
