@@ -1,33 +1,4 @@
 Today:
- ☐ add in pgsearch for paths and resources within paths, and users
-
- public and private paths and edit path searching
-
- login / signup button problems
-
- edit/delete only if you own the path
-
- problem with sample path?
-
- intro.js
-
- problem with going to user section when they don't have comments, i'm guessing there are no nill checks for
- paths or comments or other stuff as well
-
- blur on new elements added to infinite scrolling
-
- infinite scrolling has several issues still occurring i think due to the new animation
-
- play this path links to javascript;; when path resources is null, might as well just disable the button
-
- search should probably not have results when the query is null, i think it's just loading all resources
-
- rendering issues that are intermittant with infinite scrolling
-
- ☐ Add in migration for having position within path for each resource added
- ☐ Add in the ability to edit the position in the path for each resource added
-
- ☐ Add in completion of resource for viewing each one in path
-
+intro.js
 ☐ build unit tests in RSpec
 ☐ build unit tests in Jasmine
