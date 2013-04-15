@@ -22,46 +22,42 @@ var Pinterizr = function () {
         $container.on( 'mouseenter', '.pin', function( event ) {
             var $pin = $(this);
             clearTimeout( timeout );
-            setBlurs($pin);
+            timeout = setTimeout( function() {
+                if( $pin.hasClass('active') ) return false;
+                $('.pin').not($pin).removeClass('active').addClass('blur');
+                $pin.removeClass('blur').addClass('active');
+                $('.pin').not($pin).find(".resourceButtons").stop().animate({
+                    opacity: 0
+                }, 250);
+            }, 75 );
             $pin.find(".resourceButtons").stop().animate({
                 opacity: 1
             }, 250);
-            $('.path_bttn').click(function () {
-                $(this).next().toggle();
-            });
-        });
 
+        });
         $container.on( 'mouseleave', function( event ) {
             clearTimeout( timeout );
             $('.pin').removeClass('active blur');
         });
-	},
-    setBlurs = function(pin){
-        $pin = pin;
-        timeout = setTimeout( function() {
-            if( $pin.hasClass('active') ) return false;
-            $('.pin').not($pin).removeClass('active').addClass('blur');
-            $pin.removeClass('blur').addClass('active');
-            $('.pin').not($pin).find(".resourceButtons").stop().animate({
-                opacity: 0
-            }, 250);
-        }, 75 );
-    }
+	}
 	return{
 		init : init,
-		setKeyBindings : setKeyBindings,
-        setBlurs : setBlurs
+		setKeyBindings : setKeyBindings
 	};
 };
 $(function(){
 	var pinterest = new Pinterizr();
 	pinterest.init();
     pinterest.setKeyBindings();
-
+    $('.path_bttn').click(function () {
+        $(this).next().toggle();
+    });
 	$( document ).bind('resourcesUpdated', function(){
         setTimeout(function(){
-            pinterest.setBlurs();
-                $('.pin').not($pin).removeClass('active').removeClass('blur');
+                $('.pin').removeClass('active').removeClass('blur');
+                $('.path_bttn').click(function () {
+                    $(this).next().toggle();
+                });
             }
             ,75);
 	});
