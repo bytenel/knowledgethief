@@ -1,5 +1,6 @@
 require 'will_paginate/array'
 require 'google/api_client'
+require 'profanity_filter'
 
 class ResourcesController < ApplicationController
   load_and_authorize_resource
@@ -81,6 +82,9 @@ class ResourcesController < ApplicationController
   end
 
   def search
+    # params[:q] is the users query
+    # filter out profanity from the query
+    params[:q] = ProfanityFilter::Base.clean(params[:q],'stars')
 
     # Log the user's search
     u_id = current_user == nil ? 0 : current_user.id
