@@ -103,6 +103,7 @@ var ResourceView = function(){
 		slideShow.css({'height': slideHeight});
 	},
 	createIframe = function(url){
+        url = url.replace('http://www.youtube.com/watch?v=','http://www.youtube.com/embed/');
 		var newIframe = document.createElement("iframe");
 		newIframe.setAttribute("id", "main-iframe2");
 		newIframe.setAttribute("src", url);
