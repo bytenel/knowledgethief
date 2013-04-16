@@ -14,6 +14,7 @@ Kt::Application.routes.draw do
 
   resources :achievements
 
+  get "d3/index"
 
   resources :flags
 
