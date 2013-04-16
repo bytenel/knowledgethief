@@ -1,10 +1,25 @@
 <div class="pin">
-	<div class="resourceButtons">
-		
-
-	<div class="path">
-    </div>  
-	</div>
+	<div class="resourceButtons" style="opacity:0 !important;">
+		<div class="pathsHolder">
+			<button class="path_bttn"value="<%=resource.id%>">
+				Paths
+			</button>
+			<div class="pathsList">
+		    	<% if current_user && current_user.paths %>
+		         	<% current_user.paths.each do |path| %>
+		            	<%= render :partial => "shared/path_nav_bar",
+		                 :locals =>{ :path => path, :resource =>resource } %>
+			     	<% end %> 
+		    	<% else %>
+			        <ul class="nav">
+		            	<li>
+		                	<%= link_to 'Create a path', new_path_path %>
+		              	</li>
+		            </ul>
+		    	<% end %>
+			</div>
+	    </div> <!--/. pathsDropdown -->
+	</div> <!--/. resourceButtons -->
 	<div class="resourceContentHolder">
 		<div class="resourceImage">
 			 <%= image_tag(resource.snapshot.url, :class=>"thumbImg") %> 

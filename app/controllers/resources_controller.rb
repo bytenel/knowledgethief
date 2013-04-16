@@ -25,7 +25,7 @@ class ResourcesController < ApplicationController
     # Usability concern here... need to make sure that they are redirected back here once they log in or something
     if current_user == nil
       flash[:alert] = "You must log in to submit a resource!"
-      redirect_to resources_path
+      redirect_to home_path
       return
     else
       params[:resource][:user_id] = current_user.id
