@@ -1,21 +1,23 @@
 require 'will_paginate/array'
 require 'google/api_client'
+require 'profanity_filter'
 
 class ResourcesController < ApplicationController
   load_and_authorize_resource
 
   def index
-      @resources = Resource.all
-      
+    @resources = Resource.all
+
   end
 
   def show
     @resource = Resource.find(params[:id])
     @reputation = @resource.reputation_for(:votes).to_i
-    @comments = @resource.comments
+    @rcomments = @resource.rcomments.scoped
+    @rcomment = @resource.rcomments.new
     respond_to do |format|
-        format.html
-        format.json { render :status=>200, :json=>{:resource=>@resource, :reputation =>@reputation, :comments => @comments}}
+      format.html
+      format.json { render :status=>200, :json=>{:resource=>@resource, :reputation =>@reputation, :rcomments => @rcomments}}
     end
   end
 
@@ -43,8 +45,10 @@ class ResourcesController < ApplicationController
       else
         flash[:alert] = "This resource has already been added!"
       end
-    # No link provided, so this must be a question
+      # No link provided, so this must be a question
+
     else
+      raise params[:resource]
       @resource = Resource.new(params[:resource])
       @resource.update_attributes(:active => true)
       @resource.save
@@ -68,8 +72,8 @@ class ResourcesController < ApplicationController
       current_user.role = "moderator"
     end
     respond_to do |format|
-        format.html { redirect_to :back, notice: "Thank you for voting" }
-        format.json { render :status=>200, :json=>{:success=>true}}
+      format.html { redirect_to :back, notice: "Thank you for voting" }
+      format.json { render :status=>200, :json=>{:success=>true}}
     end
     if !current_user.nil?
       if(!current_user.facebook.access_token.nil?)
@@ -79,13 +83,16 @@ class ResourcesController < ApplicationController
   end
 
   def search
-    
+    # params[:q] is the users query
+    # filter out profanity from the query
+    params[:q] = ProfanityFilter::Base.clean(params[:q],'stars')
+
     # Log the user's search
     u_id = current_user == nil ? 0 : current_user.id
     UserSearch.create(user_id: u_id, query: params[:q])
 
     # Make sure google(q, filter) is run first so the sort encompasses those results as well.
-        # Make sure google(q, filter) is run first so the sort encompasses those results as well.
+    # Make sure google(q, filter) is run first so the sort encompasses those results as well.
     filter = "site"
     if params[:filter] && !params[:filter].blank?
       filter = params[:filter].downcase
@@ -101,17 +108,17 @@ class ResourcesController < ApplicationController
       @resources = Resource.all
     end
 
-     @resources = @resources.reject!{|r| !r.media_type.eql? params[:filter].downcase } unless params[:filter].blank?
+    @resources = @resources.reject!{|r| !r.media_type.eql? params[:filter].downcase } unless params[:filter].blank?
 
     unless params[:sort].blank?
       case params[:sort].downcase
         when 'newest'
-          then @resources = @resources.sort_by{|r| r.created_at}
+        then @resources = @resources.sort_by{|r| r.created_at}
         when 'votes'
-          then @resources = @resources.sort_by!{|r| r.reputation_for(:votes).to_i}.reverse
-        end
+        then @resources = @resources.sort_by!{|r| r.reputation_for(:votes).to_i}.reverse
       end
-      @resources = @resources.paginate(:page => (params[:page] || 1), :per_page => 15) unless @resources.nil?
     end
+    @resources = @resources.paginate(:page => (params[:page] || 1), :per_page => 15) unless @resources.nil?
+  end
 
 end

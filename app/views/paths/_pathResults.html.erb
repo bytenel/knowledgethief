@@ -1,0 +1,54 @@
+<div class="pathPin">
+    <div class="pathResultsLeft">
+      <%= image_tag(path.path_image_url, :class=>"thumbImg") %> 
+    </div><!--/. pathsResultsLeft-->  
+    <div class="pathResultsRight">
+      <div class="innerLeft">
+        <div class="pathsTitle">
+          <%= link_to path.name.titleize, path %>
+        </div>
+        <div class="pathsDescription">
+          <%= path.content %>
+        </div>
+        <div class="postedBy">
+          <div class="subOptions">
+            <%-# <%= link_to ' share', '#', :class => 'icon-share'-%>
+            <% if current_user && current_user.id == path.user_id %>
+                <%= link_to ' edit', edit_path_path(path), :class => 'icon-wrench' %>
+                <%= link_to ' delete', path, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'icon-trash' %>
+            <% end %>
+          </div><!--/.subOptions -->
+        </div><!--/. postedBy-->
+      </div> <!--/ pathsInnerLeft -->
+
+      <div class="pathResultsDetails">
+        <h2>Resources in Path</h2>
+        <ul class="pathLinks">
+          <% path.resources.each do |resource| %>
+              <li class="pathLinkItems">
+                <div class='pathresourceImage'>
+                  <%= image_tag(resource.snapshot.url, :width => '100%') %>
+                </div>
+                <div class="pathresourceDescription">
+                  <h3><%= link_to resource.title.titleize,url_for(resource.link),:value=>resource.id, :class => 'resourceTitle' %></h3>
+                  <%= "#{resource.description}"%>
+                </div>
+              </li>
+          <% end %>
+        </ul>
+
+      </div><!--/. pathResultDetails -->
+      <div class="pathButtons">
+        <div class="pathDetails">
+          <a class="detailsExpand" href="javascript:;">Show Details</a>
+        </div>
+        <div class="pathPlayButton">
+          <a class="playPath" href="javascript:;">Play this Path</a>
+        </div>
+      </div>
+
+    </div><!--/. pathsResultsRight -->
+
+</div> <!-- end paths wrapper -->
+  
+ 

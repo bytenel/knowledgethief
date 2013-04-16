@@ -42,7 +42,7 @@ Kt::Application.routes.draw do
   devise_for :users
 
 
-  resources :comments do
+  resources :rcomments do
      member {post :forresource}
   end
 
@@ -105,13 +105,13 @@ Kt::Application.routes.draw do
 
   # Sample resource route with sub-resources:
   #   resources :products do
-  #     resources :comments, :sales
+  #     resources :rcomments, :sales
   #     resource :seller
   #   end
 
   # Sample resource route with more complex sub-resources
   #   resources :products do
-  #     resources :comments
+  #     resources :rcomments
   #     resources :sales do
   #       get 'recent', :on => :collection
   #     end

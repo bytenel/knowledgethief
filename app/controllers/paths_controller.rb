@@ -1,9 +1,10 @@
-class PathsController < ApplicationController
+require 'will_paginate/array'
 
+class PathsController < ApplicationController
   # GET /paths
   # GET /paths.json
   def index
-    @paths = Path.all
+    @paths = Path.page(params[:page]).per_page(20)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @paths }
@@ -18,6 +19,7 @@ class PathsController < ApplicationController
   # GET /paths/1.json
   def show
     @path = Path.find(params[:id])
+    @resources = @path.resources
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,14 +30,12 @@ class PathsController < ApplicationController
   # GET /paths/new
   # GET /paths/new.json
   def new
-    require_login
+  if user_signed_in?
+      @path = current_user.paths.new 
+    else
+      redirect_to new_user_session_path
+  end
 
-    @path = current_user.paths.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @path }
-    end
   end
 
   # GET /paths/1/edit
@@ -51,7 +51,7 @@ class PathsController < ApplicationController
     require_login
     @user = current_user
     @path = @user.paths.new(params[:path])
-
+    
     respond_to do |format|
       if @path.save
         format.html { redirect_to @path, notice: 'Path was successfully created.' }

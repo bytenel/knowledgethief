@@ -17,7 +17,7 @@ class HomeController < ApplicationController
       else
         # @resources = Popular resources
         
-        @resources = Resource.page(params[:page]).per_page(10).find_with_reputation(:votes, :all, order: "votes desc")
+        @resources = Resource.page(params[:page]).per_page(20).find_with_reputation(:votes, :all, order: "votes desc")
         @select_type = "Popular"
       end
       
@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   end
 
   def infiteScroll
-    @resources = Resource.find_with_reputation(:votes, :all, :limit => 10, order: "votes desc", :offset => 10)
+    @resources = Resource.find_with_reputation(:votes, :all, :limit => 20, order: "votes desc", :offset => 20)
     
     @select_type = "Popular"
     respond_to do |format|

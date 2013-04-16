@@ -35,10 +35,10 @@ describe CommentsController do
   end
 
   describe "GET index" do
-    it "assigns all comments as @comments" do
+    it "assigns all rcomments as @rcomments" do
       comment = Comment.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:comments).should eq([comment])
+      assigns(:rcomments).should eq([comment])
     end
   end
 
@@ -106,7 +106,7 @@ describe CommentsController do
     describe "with valid params" do
       it "updates the requested comment" do
         comment = Comment.create! valid_attributes
-        # Assuming there are no other comments in the database, this
+        # Assuming there are no other rcomments in the database, this
         # specifies that the Comment created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
@@ -154,7 +154,7 @@ describe CommentsController do
       }.to change(Comment, :count).by(-1)
     end
 
-    it "redirects to the comments list" do
+    it "redirects to the rcomments list" do
       comment = Comment.create! valid_attributes
       delete :destroy, {:id => comment.to_param}, valid_session
       response.should redirect_to(comments_url)

@@ -12,6 +12,9 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 # Votable gem
 gem 'acts_as_votable'
 
+# Ancestry for rcomments
+gem 'ancestry'
+
 # Devise
 gem 'devise'
 
@@ -85,6 +88,9 @@ gem 'public_activity'
 
 # Intro.js for the beta presentation
 gem 'introjs-rails'
+
+# Profanity filter
+gem 'profanity_filter'
 
 group :development do
    # The following three gems will make sure Linux, Mac and Windows work (respectively)

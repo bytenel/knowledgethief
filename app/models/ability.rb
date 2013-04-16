@@ -35,7 +35,7 @@ class Ability
       can :update, Resource do |resource|
         resource.try(:user_id) == user.id 
       end
-      can :update, Comment do |comment| 
+      can :update, Rcomment do |comment|
         comment.try(:user_id) == user.id
       end
     else  
@@ -49,7 +49,7 @@ class Ability
         can :update, Resource do |resource|
           resource.try(:user_id) == user.id || user.role?(:moderator)
         end
-        can :update, Comment do |comment| 
+        can :update, Rcomment do |comment|
           comment.try(:user_id) == user.id || user.role?(:moderator)
         end
         

@@ -14,6 +14,7 @@ var ResourceView = function(){
     var slidesInner = $('#slideInner');
     var slideHistory = new Array(); //left 0; right 1;
     var historyStackSize = 0;
+    var isPath_link = false;
 	init = function(url,new_resource_id){
 		resource_id = new_resource_id;
 		setKeyBindings();
@@ -24,10 +25,17 @@ var ResourceView = function(){
 		// Remove scrollbar in JS
   		
   		slideWidth = $(window).width();
-		$('.resourceTitle').each(function(){
-  			searchResultURLS.push($(this).attr('href'));
-  			$('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
-		});
+        if(isPath_link){
+             $.each(searchResultURLS, function(index, value){
+                $('.searchList').append("<li>" +value +" </li>").hide().fadeIn();
+             });
+        }else{
+            $('.resourceTitle').each(function(){
+                searchResultURLS.push($(this).attr('href'));
+                $('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
+            });
+        }
+
 		var isFirst = true;
 		for(var i = 0 ; i< searchResultURLS.length; i++){
 			if(searchResultURLS[i] === url){
@@ -95,6 +103,7 @@ var ResourceView = function(){
 		slideShow.css({'height': slideHeight});
 	},
 	createIframe = function(url){
+        url = url.replace('http://www.youtube.com/watch?v=','http://www.youtube.com/embed/');
 		var newIframe = document.createElement("iframe");
 		newIframe.setAttribute("id", "main-iframe2");
 		newIframe.setAttribute("src", url);
@@ -174,7 +183,6 @@ var ResourceView = function(){
 	    		else
     			($(this).attr('id')=='nextslide') ? slideView(1) : slideView(-1);
     		}
-    		
     	});
     	$('.navigation-box').click(function(event){
     		event.preventDefault();
@@ -378,27 +386,27 @@ var ResourceView = function(){
 	comments = function(new_resource_id){
 		$.ajax({
 			type: "post",
-			url: "/comments/"+new_resource_id +"/forresource",
+			url: "/rcomments/"+new_resource_id +"/forresource",
 			dataType: "json",
 			// Define request handlers.
 			success: function( objResponse ){
 				// Check to see if request was successful.
 				$('.commentsList').empty();
-				$.each(objResponse.comments, function(i, item) {
+				$.each(objResponse.rcomments, function(i, item) {
 					  var today = new Date();
-					  var post =item.updated_at;
+					  var post =Date.parse(item.created_at);
 					  //  date = Date.parse(DateToValue);
-					  difference = (post-today)/(1000*60);
+					  difference = (today - post)/(1000*60);
 					  var timediff = 0;
 					  if(difference < 60){
-				        timediff = difference + " minutes ago";
+				        timediff = Math.floor(difference) + " minutes ago";
 			    	  }else if(difference < 1440 && difference >= 60){
-					    timediff = difference/60 + " hours ago";
+					    timediff = Math.floor(difference/60) + " hours ago";
 					  }else if(difference >= 1440){
-					    timediff = difference/(60*24) + " days ago";
+					    timediff = Math.floor(difference/(60*24)) + " days ago";
 					  }
 
-    				$('.commentsList').append("<li>" +item.content +timediff +"  minutes ago</li>").hide().fadeIn();
+    				$('.commentsList').append("<li class='veilComments'> " +item.content +"  -  " +timediff+"</li>").hide().fadeIn();
 				});
 			},
 			error: function( objRequest, strError ){
@@ -450,7 +458,7 @@ var ResourceView = function(){
 		console.log(commentText);
 		$.ajax({
 			type: "post",
-			url: "/comments",
+			url: "/rcomments",
 			data: {
 				content : commentText,
 				resource : resource_id
@@ -491,7 +499,11 @@ var ResourceView = function(){
 				alert("error with comment");
 			}
 		});
-	}
+	},
+    setPaths = function(pathURLS){
+        searchResultURLS = pathURLS;
+        isPath_link = true;
+    },
 	vote = function(vote){
 		$.ajax({
 			type: "post",
@@ -528,14 +540,15 @@ var ResourceView = function(){
 		logUserEndTime : logUserEndTime,
 		saveComment : saveComment,
 		toggleBar : toggleBar,
-		setKeyBindings : setKeyBindings
+		setKeyBindings : setKeyBindings,
+        setPaths  : setPaths
 	};
 };
 
 $(function(){
 	var rView = new ResourceView();
-	$('#columns').on('click', '.resourceTitle', function (){
-		
+    $columns = $('#columns');
+    $columns.on('click', '.resourceTitle', function (){
 		var link = $(this).attr('href');
 		//this is hacky as shit. split on /'s and check if its a resource link
 		var parts = link.split('/');
@@ -552,5 +565,45 @@ $(function(){
 		}
 		return false;
 	});
+    $columns.on('click', '.thumbImg', function (){
+        var link = $(this).parent().attr('href');
+        //this is hacky as shit. split on /'s and check if its a resource link
+        var parts = link.split('/');
+        if(parts[1] == "resources"){
+            return true;
+        }else{
+            var link_href = link;
+            var get_resource_id = $(this).parent().attr('value');
+            rView.init(link_href, get_resource_id);
+            rView.setKeyBindings();
+            rView.comments(get_resource_id);
+            rView.logUser(get_resource_id);
+            return false;
+        }
+        return false;
+    });
+    $('.pathPin').on('click', '.playPath', function(){
+        pathLinks = new Array();
+        res_ids = new Array();
+        $(this).parents('.pathButtons').siblings('.pathResultsDetails').find('.pathLinkItems').each(function(){
+            $current_resource = $(this).find('a');
+            pathLinks.push($current_resource.attr('href'));
+            res_ids.push($current_resource.attr('value'));
+        });
+        var path_link = pathLinks[0];
+        var get_resource_id = res_ids[0];
+        var path_parts = path_link.split('/');
+        if(path_parts[1] == "resources"){
+            return true;
+        }else{
+            rView.setPaths(pathLinks);
+            rView.init(path_link, get_resource_id);
+            rView.setKeyBindings();
+            rView.comments(get_resource_id);
+            rView.logUser(get_resource_id);
+            return false;
+        }
+        return false;
+    });
 
 });

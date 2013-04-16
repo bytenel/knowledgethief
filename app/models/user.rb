@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :searches, :class_name => 'UserSearch'
   has_many :resources
   has_many :paths
-  has_many :comments
+  has_many :rcomments
   has_many :resource_views, :class_name => 'UserResourceView'
   has_many :viewed_resources, :through => :resource_views, :source => :resource
   has_many :authentications

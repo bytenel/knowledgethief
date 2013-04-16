@@ -7,6 +7,10 @@
 # Ignore bundler config
 /.bundle
 
+# Ignore rubymine shit
+.idea/
+idea/
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /app/views/.DS_Store
@@ -33,3 +37,9 @@ kt.sublime*
 _backup/
 # Ben's stuff
 KTDescription3.pdf
+
+# Rubymine bullshit
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/*.xml
+/.idea/*.iml

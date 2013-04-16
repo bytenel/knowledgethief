@@ -1,27 +1,19 @@
 <div id="pathsContainer">
-  <h1>Listing paths</h1>
+  <div class="pathsLeft">
+    <ul class="navMenu">
+      <li class="navHeader">Menu</li>
+      <li>
+          <%= link_to 'New Path', new_path_path %>
+      </li>
+      <li>
+          <%= link_to 'My Paths', user_profile_path %>
+      </li>
+    </ul><!--/.navMenu -->
+  </div><!--/.pathsLeft -->
+  <div class="pathsRight">
+    <div id="pathsColumns">
+        <%= render :partial => 'pathResults', :collection => @paths, :as => 'path' %>
+   </div><!-- end pathsColumns -->
+</div>
 
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Content</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-  <% @paths.each do |path| %>
-    <tr>
-      <td><%= path.name %></td>
-      <td><%= path.content %></td>
-      <td><%= link_to 'Show', path %></td>
-      <td><%= link_to 'Edit', edit_path_path(path) %></td>
-      <td><%= link_to 'Destroy', path, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </table>
-
-  <br />
-
-  <%= link_to 'New Path', new_path_path %>
 </div>
