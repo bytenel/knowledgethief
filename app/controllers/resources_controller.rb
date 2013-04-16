@@ -24,9 +24,11 @@ class ResourcesController < ApplicationController
   def create
     # Usability concern here... need to make sure that they are redirected back here once they log in or something
     if current_user == nil
-      flash[:alert] = "You must log in to submit a resource!"
+      flash.keep
+      flash[:error] = "You must log in to submit a resource!"
       redirect_to home_path
       return
+
     else
       params[:resource][:user_id] = current_user.id
     end
@@ -42,7 +44,7 @@ class ResourcesController < ApplicationController
         @resource.save
         Resource.upload_image(@resource)
       else
-        flash[:alert] = "This resource has already been added!"
+        flash[:error] = "This resource has already been added!"
       end
       # No link provided, so this must be a question
 
