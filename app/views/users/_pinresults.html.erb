@@ -9,10 +9,7 @@
 
 		<div class="path">
 	    <% unless Path.all.empty? %>
-	         <% for path in Path.all %>
-	            <%= render :partial => "shared/path_nav_bar",
-	                 :locals =>{ :path => path, :resource =>resource } %>
-		     <% end %> 
+	        
 	    <% else %>
 		       <ul class="nav">
 	              <li>
