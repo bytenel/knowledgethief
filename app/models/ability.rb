@@ -32,6 +32,22 @@ class Ability
       can :vote, :all
       can :forresource, :all
       can :failure, :all
+      can :update, Resume do |res|
+        res.try(:user_id) == user.id || user.role == "moderator"
+      end
+      can :update, Education do |edu|
+        edu.try(:user_id) == user.id || user.role == "moderator"
+      end
+      can :update, Achievement do |ach|
+        ach.try(:user_id) == user.id || user.role == "moderator"
+      end
+      can :update, Experience do |exp|
+        exp.try(:user_id) == user.id || user.role == "moderator"
+      end
+      can :update, Skill do |ski|
+        ski.try(:user_id) == user.id || user.role == "moderator"
+      end
+
       can :update, Resource do |resource|
         resource.try(:user_id) == user.id 
       end
@@ -39,7 +55,7 @@ class Ability
         comment.try(:user_id) == user.id
       end
     else  
-      if user.role? :admin
+      if user.role? == "admin"
         can :manage, :all
       else
         can :read, :all
@@ -47,12 +63,27 @@ class Ability
         can :search, :all
         can :vote, :all
         can :update, Resource do |resource|
-          resource.try(:user_id) == user.id || user.role?(:moderator)
+          resource.try(:user_id) == user.id || user.role == "moderator"
         end
         can :update, Rcomment do |comment|
-          comment.try(:user_id) == user.id || user.role?(:moderator)
+          comment.try(:user_id) == user.id || user.role == "moderator"
         end
-        
+        can :update, Resume do |res|
+          res.try(:user_id) == user.id || user.role == "moderator"
+        end
+        can :update, Education do |edu|
+          edu.try(:user_id) == user.id || user.role == "moderator"
+        end
+        can :update, Achievement do |ach|
+          ach.try(:user_id) == user.id || user.role == "moderator"
+        end
+        can :update, Experience do |exp|
+          exp.try(:user_id) == user.id || user.role == "moderator"
+        end
+        can :update, Skill do |ski|
+          ski.try(:user_id) == user.id || user.role == "moderator"
+        end
+
       end
     end
   end

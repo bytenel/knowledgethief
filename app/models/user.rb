@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :nickname,
                   :first_name, :last_name, :image, :location, :birthday, :hometown_name,
-                  :bio, :gender, :full_name, :oauth_token
+                  :bio, :gender, :full_name, :oauth_token, :role
 
   # attr_accessible :title, :body
 
