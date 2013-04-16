@@ -240,10 +240,13 @@ var ResourceView = function(){
 		$(".ajaxDownvote").click(function(){
 			vote('down');
 		});
-		$('#saveComment').click(function(){
-			console.log("WOWOOWOW");
-			var commentText = $("#commenttext").val();
-			saveComment(commentText);
+		$('.commentform').submit(function(e){
+            e.preventDefault();
+            $(e.target).find("#rcomment_resource_id").val(resource_id);
+
+			var commentValues = $(this).serialize();
+            $('#rcomment_content').val('');
+			saveComment(commentValues);
 		});
 
 		$('#newFlag').click(function(){
@@ -450,24 +453,15 @@ var ResourceView = function(){
 		});
 	};
 	saveComment = function(commentText){
-		console.log(commentText);
 		$.ajax({
 			type: "post",
 			url: "/rcomments",
-			data: {
-				content : commentText,
-				resource : resource_id
-
-			},
+			data: commentText,
 			dataType: "json",
 			// Define request handlers.
 			success: function( objResponse ){
 				// Check to see if request was successful.
-				console.log("works");
-				$('.commentsList').html('');
-				$.each(objResponse.comments, function(i, item) {
-    				$('.commentsList').append("<li>" +item.content +"</li>").hide().fadeIn();
-				});
+				comments(resource_id);
 			},
 			error: function( objRequest, strError ){
 				alert("error with comment");
