@@ -39,90 +39,140 @@
 		<ul>
 			<li id="userTab"><a id="userTabLink" class="userTabLink_resource">Resource</a></li>
 			<li id="userTab">||</li>
-			<li id="userTab"><a id="userTabLink" class="userTabLink_path">Path</a></li>
+			<li id="userTab"><a id="userTabLink" class="userTabLink_path">Resume</a></li>
+			<% if current_user.reputation_for(:votes).to_i > 10000 || current_user.role == 'admin' || current_user.email=='mikeliu639@gmail.com' || current_user.email=='hoa801@gmail.com'|| current_user.email=='nelson.ben.c@gmail.com'|| current_user.email=='landonwilkins@gmail.com'%>
+			<%= raw("<li id='userTab'>||</li>") %>
+			<%= raw("<li id='userTab'>")%><%= link_to 'Flags', flags_path, :style=>'color:#434343;'%><%= raw("</li>")%>
+			<% end %>
+			
 		</ul>
-		<div id = "userResources" >
+		<div id = "userResources">
 			<h1>My Resources:</h1>
 			<% if @rc.empty? %>
 				You haven't posted anything yet.
 			<% else %>
 				<div id="userResourceContainer" style="margin-top:5px;">
 					<div id="columns">
-						<%= render :partial => 'shared/pinresults', :collection => @rc, :as => 'resource' %>
+						<%= render :partial => 'pinresults', :collection => @rc, :as => 'resource' %>
 					</div>
 				</div>
 			<% end %>
 		</div>
+
 		<div style="clear:both;"/></div>
-		<div id = "userPaths" style="display:none">
-			<h1>My Path:</h1>
-			<% if @paths.empty? %>
-				You haven't posted anything yet.
+
+		<div id = "userPaths" style="padding-left:20px;display:none;">
+			<div style="float:left;">
+			<h1>Resume</h1>
+			</div>
+			<div style="float:right;padding-right:20%;" >
+			<button type="button" style="width: 70px;height: 30px;" id='resumeEdit' class='resumeEdit'>Edit</button><br>
+		    </div>
+		    <div style="clear:both;"/></div>
+			<% if(current_user.resume.nil?) %>
+			<% 
+                    resume = Resume.new
+                   resume.apply(current_user.id)
+                   resume.save
+                   %>
+			  <button type="button" id='resumeEdit' class='resumeEdit'></button>
 			<% else %>
-				<div id="userResourceContainer" style="margin-top:5px;">
-					<div id="columns">
-						<%= render :partial => 'path',  :collection => @paths, :as => 'path'%>
-					</div>
-				</div>
-			<% end %>
-			
+
+			  <div id='user-resume' class="resume">
+			  	<%= current_user.first_name%> <%= current_user.last_name%><br>
+			  	
+			  	<%= current_user.resume.phone unless current_user.resume.phone.nil? %><br>
+			  	<%= current_user.resume.address unless current_user.resume.address.nil?%> 
+			  	<div id='editbutton' style="display:none;">
+			  	<%= link_to image_tag('edit_button.png', :size => '70x30'),
+                      resumes_path, :class => 'btn btn-mini editbutton' %>
+                </div>
+			  </div>
+			  <div id='user-education' class="resume">
+			  	<h3>Education</h3>
+			  	<% @education.each do |edu|%>
+			  	<div id='edu'>
+			  		<div id='eduleft' >
+			  		  <b class='resume'><%= edu.school_name %></b>
+			  		</div>
+			  		<div id='eduright' class='resume'>
+			  			<%= edu.since_year %>-<%=edu.end_year%>
+			  		</div>
+			  		<div style="clear:both;"/></div>
+			  		<div id='eduleft' class='resume'>
+			  		  <%= edu.major %>
+			  		</div>
+			  		<div id='eduright' class='resume'>
+			  			<%= edu.city%>, <%= edu.state %>
+			  		</div>
+			  		<div style="clear:both;"/></div>
+			  	</div>
+			  	<% end %>
+			  	<div id='editbutton2' style="display:none;">
+			  	<%= link_to image_tag('edit_button.png', :size => '70x30'),
+                      educations_path, :class => 'btn btn-mini editbutton' %>
+                </div>
+			  </div>
+			  <div id='user-experience' class="resume">
+			  	<h3>Experience</h3>
+			  	<% @experience.each do |exp|%>
+			  	<div id='edu'>
+			  		<b><h3 id='eduleft'class='resume'>
+			  		  <%= exp.institute_name %>
+			  		</h3></b>
+			  		<div id='eduright'class='resume'>
+			  			<%= exp.since_year %>-<%=exp.end_year%>
+			  		</div>
+			  		<div style="clear:both;"/></div>
+			  		<b><div id='eduleft'class='resume'>
+			  		  <%= exp.title %>
+			  		</div></b>
+			  		<div id='eduright'class='resume'>
+			  		  <%= exp.city%>, <%= exp.state %>
+			  		</div>
+			  		<div style="clear:both;"/></div>
+			  		<div class='resume'>
+			  		<%= exp.summary%>
+			  		</div>
+			  	</div>
+			  	<% end %>
+			  	<div id='editbutton3' style="display:none;">
+			  	<%= link_to image_tag('edit_button.png', :size => '70x30'),
+                      experiences_path, :class => 'btn btn-mini editbutton' %>
+                </div>
+			  </div>
+			  <div id='user-skill' class="resume">
+			  	<h3>Skill</h3>
+			  	<ul>
+			  	<% @skill.each do |ski|%>
+			  		<li ><b class='resume'><%= ski.name%> </b><% if(!ski.summary.nil?)%> - <span class="resume"><%= ski.summary %><%end%></span></li>
+			  		<%#= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_skill_path(ski), :class => 'btn btn-mini' %>
+			    <%end%>
+			    </ul>
+			    <div id='editbutton4' style="display:none;">
+			  	<%= link_to image_tag('edit_button.png', :size => '70x30'),
+                      skills_path, :class => 'btn btn-mini editbutton' %>
+                </div>
+			  </div>
+			  <div id='user-achievement' class="resume">
+			  	<h3>Achievement</h3>
+			  	<ul>
+			  	<% @achievement.each do |ach|%>
+			  		<li><span class='resume'><%= ach.summary %></span></li>
+			    <%end%>
+			    </ul>
+			    <div id='editbutton5' style="display:none" >
+			  	<%= link_to image_tag('edit_button.png', :size => '70x30'), 
+                      achievements_path, :class => 'btn btn-mini editbutton' %>
+                </div>
+			  </div>
+
+			<% end %>  
+			<%= link_to image_tag('view_button.png', :size => '70x30'), user_resume_path %>
 		</div>
 	</section>
 	<section id="right">
-		<div class="gcontent">
-			<div class="head"><h1>Badges(3)</h1></div>
-			<div class="boxy">
-				
-				<div class="badgeCount">
-					<a href="#"><%= link_to image_tag("foursquare-badge.png")%></a>
-					<a href="#"><%= link_to image_tag("foursquare-badge.png")%></a>
-					<a href="#"><%= link_to image_tag("foursquare-badge.png")%></a>
-				</div>
-				
-				<span><a href="#" style="color:black">See all…</a></span>
-			</div>
-		</div>
-		
-		<div class="gcontent">
-			<div class="head"><h1>Friends List</h1></div>
-			<div class="boxy">
-				<p>Your friends - 106 total</p>
-				
-				<div class="tempfriendslist clearfix">
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Jerry K.", :class=>".cusimg"%></a>
-						<span ><a href="#" class="friendly">Jerry K.</a></span>
-					</div>
-					
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Katie F.", :class=>".cusimg" %></a>
-						<span ><a href="#" class="friendly">Katie F.</a></span>
-					</div>
-					
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Ash K.", :class=>".cusimg" %></a>
-						<span ><a href="#" class="friendly">Ash K.</a></span>
-					</div>
-					
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Sponge B.", :class=>".cusimg" %></a>
-						<span ><a href="#" class="friendly">Sponge B.</a></span>
-					</div>
-					
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Frank", :class=>".cusimg" %></a>
-						<span ><a href="#" class="friendly">Frank</a></span>
-					</div>
-					
-					<div class="tempfriend">
-						<a href="#"><%= link_to image_tag("friend_default.jpg"), :width=>"30", :height=>"30", :alt=>"Alexa S.", :class=>".cusimg" %></a>
-						<span ><a href="#" class="friendly">Alexa S.</a></span>
-					</div>
-				</div>
-				<p style="float:clean;"></p>
-				<br/><br/><br/><br/><br/><br/><span class="friendseeall"><a href="#" style="color:black">See all...</a></span>
-			</div>
-		</div>
 		<div class="gcontent">
 			<div class="head"><h1>My Comments</h1></div>
 			<div class="boxy">

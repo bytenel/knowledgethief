@@ -20,6 +20,7 @@ gem 'devise'
 
 #koala
 gem 'koala'
+gem "httparty"
 
 gem 'activeadmin'
 
@@ -73,8 +74,8 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Slim for slim syntax for erb html files
-gem 'slim'
-gem 'slim-rails'
+#gem 'slim'
+#gem 'slim-rails'
 
 # For time duration manipulation
 gem "chronic_duration", "~> 0.10.2"

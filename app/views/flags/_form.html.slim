@@ -1,16 +1,25 @@
-= form_for @flag do |f|
-  - if @flag.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@flag.errors.count, "error")} prohibited this flag from being saved:"
-      ul
-        - @flag.errors.full_messages.each do |message|
-          li = message
+<%= form_for(@flag) do |f| %>
+  <% if @flag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@flag.errors.count, "error") %> prohibited this flag from being saved:</h2>
 
-  .field
-    = f.label :itemtype
-    = f.text_field :itemtype
-  .field
-    = f.label :desc
-    = f.text_field :desc
+      <ul>
+      <% @flag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :itemtype %><br />
+    <%= f.text_field :itemtype %>
+  </div>
+  <div class="field">
+    <%= f.label :desc %><br />
+    <%= f.text_field :desc %>
+  </div>
 
-  .actions = f.submit 'Save'
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

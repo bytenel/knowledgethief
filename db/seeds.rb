@@ -24,6 +24,12 @@ require 'active_record/fixtures'
  # OperatingSystem.find_or_create_by_name(os)
 #end
 
+
+
+
+
+
+=begin 
 Resource.delete_all # Have this line if we want to delete all resources before we add them.
 File.open("app/assets/files/seed_resources.txt") do |seed_resources|
   seed_resources.each_line do |r|
@@ -67,3 +73,4 @@ File.open("app/assets/files/seed_resources.txt") do |seed_resources|
 end
 
 #Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "operating_systems")
+=end

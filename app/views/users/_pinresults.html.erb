@@ -1,0 +1,29 @@
+<div class="pin">
+	<div class="resourceButtons">
+		
+
+	<div class="path">
+    </div>  
+	</div>
+	<div class="resourceContentHolder">
+		<div class="resourceImage">
+			 <%= image_tag(resource.snapshot.url, :class=>"thumbImg") %> 
+		</div>
+		<div id="resourceInfo">
+			<div class="upvotesCount">
+	       		<%= resource.reputation_for(:votes).to_i %> 
+	   		</div>
+	   		<div class="r" value="<%= resource.id %>">
+	       		<%= link_to resource.title, url_for(resource.link), :value => resource.id, :class => 'resourceTitle' %> 
+	       	</div>
+	    </div>
+		<div class="resourceDescription">
+	    	<%= resource.description %>
+	    </div>
+	    <div class="resourceInfo" style="float:right">
+	    	Views: <%= resource.views.count%><br>
+	    	Comments: <%= resource.rcomments.count%>
+	    </div>
+	</div>
+
+</div>

@@ -1,4 +1,5 @@
 class FlagsController < InheritedResources::Base
+  load_and_authorize_resource
   def index
     @flags = Flag.all
 

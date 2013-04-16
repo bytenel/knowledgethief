@@ -22,7 +22,6 @@ class ResourcesController < ApplicationController
   end
 
   def create
-
     # Usability concern here... need to make sure that they are redirected back here once they log in or something
     if current_user == nil
       flash[:alert] = "You must log in to submit a resource!"
@@ -48,13 +47,14 @@ class ResourcesController < ApplicationController
       # No link provided, so this must be a question
 
     else
-      raise params[:resource]
+
       @resource = Resource.new(params[:resource])
       @resource.update_attributes(:active => true)
       @resource.save
       @resource.update_attribute(:link, "/resources/"+@resource.id.to_s)
     end
-    if(!current_user.facebook.access_token.nil?)
+    #@authen = Authentication.find_by_user_id_and_provider(current_user.id, 'facebook')
+    if(!current_user.facebook.access_token.nil? && current_user.publish_actions)
       current_user.facebook.put_wall_post("I posted a resource on www.knowledgethief.com")
     end
     redirect_to home_path

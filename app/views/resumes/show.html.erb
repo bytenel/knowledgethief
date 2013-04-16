@@ -1,0 +1,27 @@
+<div style="padding-left:20%">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @resume.user_id %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @resume.phone %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @resume.address %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @resume.summary %>
+</p>
+
+
+<%= link_to image_tag('edit_button.png', :size => '70x30'), edit_resume_path(@resume) %>
+<%= link_to image_tag('back_button.png', :size => '70x30'), resumes_path %>
+</div>

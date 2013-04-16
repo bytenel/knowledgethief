@@ -1,0 +1,100 @@
+<div class="container" style="width:100%;!important;" >
+	<section id="left">
+		
+		<div id = "userPaths" style="display:none">
+			<h1>Resume</h1>
+			<% if(current_user.resume.nil?) %>
+			  <button type="button" id='resumeEdit' class='resumeEdit'>Edit</button>
+			<% else %>
+
+			  <div id='user-resume'>
+			  	<%= current_user.first_name%> <%= current_user.last_name%><br>
+			  	
+			  	<%= current_user.resume.phone if !current_user.resume.phone.nil? %><br>
+			  	<%= current_user.resume.address if !current_user.resume.address.nil?%> 
+			  	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_resume_path(current_user.resume.id), :class => 'btn btn-mini' %>
+			  </div>
+			  <div id='user-education'>
+			  	<h1>Education</h1>
+			  	<% @education.each do |edu|%>
+			  	<div id='edu'>
+			  		<div id='eduleft'>
+			  		  <%= edu.school_name %>
+			  		</div>
+			  		<div id='eduright'>
+			  			<%= edu.since_year %>-<%=edu.end_year%>
+			  		</div>
+			  		<div style='float=clear'/>
+			  		<div id='eduleft'>
+			  		  <%= exp.major %>
+			  		</div>
+			  		<div id='eduright'>
+			  			<%= exp.city%>, <%= exp.state %>
+			  		</div>
+			  		<%= edu.summary%>
+			  	</div>
+			  	<% end %>
+			  	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      education_path, :class => 'btn btn-mini' %>
+			  </div>
+			  <div id='user-experience'>
+			  	<% @experience.each do |exp|%>
+			  	<div id='edu'>
+			  		<div id='eduleft'>
+			  		  <%= exp.institute_name %>
+			  		</div>
+			  		<div id='eduright'>
+			  			<%= exp.since_year %>-<%=exp.end_year%>
+			  		</div>
+			  		<div style='float=clear'/>
+			  		<div id='eduleft'>
+			  		  <%= exp.title %>
+			  		</div>
+			  		<div id='eduright'>
+			  		  <%= exp.city%>, <%= exp.state %>
+			  		</div>
+			  		<div style='float=clear'/>
+			  		<%= exp.summary%>
+			  	</div>
+			  	<% end %>
+			  </div>
+			  <div id='user-skill'>
+			  	<ul>
+			  	<% @skill.each do |ski|%>
+			  		<li><%= ski.name%> <% if(!ski.summary.nil?)%> - <%= ski.summary %><%end%></li>
+			  		<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_skill_path(ski), :class => 'btn btn-mini' %>
+			    <%end%>
+			    </ul>
+			  </div>
+			  <div id='user-achievement'>
+			  	<ul>
+			  	<% @achievement.each do |ach|%>
+			  		<li><%= ach.summary %></li>
+			  		<%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_achievement_path(ach), :class => 'btn btn-mini' %>
+			    <%end%>
+			    </ul>
+			  </div>
+
+			<% end %>  
+		</div>
+	</section>
+	<section id="right">
+		<div class="gcontent">
+			<div class="head"><h1>My Comments</h1></div>
+			<div class="boxy">
+				<% if @comments.empty? %>
+					You haven't posted any comments yet.
+				<% else %>
+					<ul>
+						<% @comments.each do |comment|  %>
+							<li><%= comment.content %></li>
+						<% end %>
+					</ul>
+					<% end %>
+			</div>
+		</div>
+	</section>
+</div>
