@@ -40,7 +40,7 @@
 			<li id="userTab"><a id="userTabLink" class="userTabLink_resource">Resource</a></li>
 			<li id="userTab">||</li>
 			<li id="userTab"><a id="userTabLink" class="userTabLink_path">Resume</a></li>
-			<% if current_user.reputation_for(:votes).to_i > 10000 || current_user.role == 'admin' || current_user.email=='mikeliu639@gmail.com' %>
+			<% if current_user.reputation_for(:votes).to_i > 10000 || current_user.role == 'admin' || current_user.email=='mikeliu639@gmail.com' || current_user.email=='hoa801@gmail.com'|| current_user.email=='nelson.ben.c@gmail.com'|| current_user.email=='landonwilkins@gmail.com'%>
 			<%= raw("<li id='userTab'>||</li>") %>
 			<%= raw("<li id='userTab'>")%><%= link_to 'Flags', flags_path, :style=>'color:#434343;'%><%= raw("</li>")%>
 			<% end %>
