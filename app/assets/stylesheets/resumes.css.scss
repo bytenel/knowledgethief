@@ -2,7 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#usersContainer{
+.usersProfileContainer{
+	padding-right: 10%;
+	padding-left: 10%;
+	font-size: 150;
   h1{
     color:#434343 !important;
     display: block;
