@@ -260,25 +260,41 @@ h1, h2 {
   height:275px;
   overflow:auto;
   width: 100%;
+  li:hover{
+    border: 1px solid darkorange;
+  }
   li{
     border: 1px solid gray;
     width: 100%;
     overflow: auto;
-
-    .resourceDescription{
-      padding: 10px 5px 10px;
-      float:left;
-      width: 70%;
-      height: 100%;
+    h1,h2,h3{
+      font-family:'Open Sans';
+      font-size: 14px;
+      font-weight:bold;
+      padding: 0px 5px 0px;
     }
     .resourceImage{
       float:left;
-      width: 30%;
+      width: 20%;
       height: 100%;
       img{
         border: solid 1px gray;
       }
     }
+    .resourcesright{
+      float:left;
+      width: 80%;
+      .resourceLink{
+        font-size: 11px;
+        font-style:italic;
+        padding: 0px 5px 0px;
+      }
+      .resourceDescription{
+        padding: 4px 5px 4px;
+      }
+
+    }
+
   }
 }
 .formHolder{

@@ -31,7 +31,7 @@
                 </div>
                 <div class="pathresourceDescription">
                   <h3><%= link_to resource.title.titleize,url_for(resource.link),:value=>resource.id, :class => 'resourceTitle' %></h3>
-                  <%= "#{resource.description}"%>
+                  <div class="pathPinDescription"><%= "#{resource.description}"%></div>
                 </div>
               </li>
           <% end %>

@@ -17,6 +17,7 @@ var ResourceView = function(){
     var isPath_link = false;
     var pinsArray = [];
 	init = function(url,new_resource_id){
+        window.resourceview_active = true;
 		resource_id = new_resource_id;
 		setKeyBindings();
 		updateBrowserHistory();
@@ -26,17 +27,18 @@ var ResourceView = function(){
 		// Remove scrollbar in JS
   		
   		slideWidth = $(window).width();
-        if(isPath_link){
-             $.each(searchResultURLS, function(index, value){
-                $('.searchList').append("<li>" +value +" </li>").hide().fadeIn();
-             });
-        }else{
-            $('.resourceTitle').each(function(){
-                searchResultURLS.push($(this).attr('href'));
-               // $('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
+        if(!isPath_link){
+            $('.pin').each(function(){
+                searchResultURLS.push($(this).find('.resourceTitle').attr('href'));
+                pinId = $(this).find('.resourceTitle').attr('value');
+                pinTitle = $(this).find('.resourceTitle').text().substring(0,50);
+                pinLink = $(this).find('.resourceTitle').attr('href').substring(0,47);
+                pinDescription = $(this).find('.resourceDescription').text().substring(0,250);
+                pinImage = $(this).find('.thumbImg').attr('src');
+                pinsArray.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
+                getPins();
             });
         }
-        getPins();
 		var isFirst = true;
 		for(var i = 0 ; i< searchResultURLS.length; i++){
 			if(searchResultURLS[i] === url){
@@ -91,33 +93,17 @@ var ResourceView = function(){
 		   });
 	},
     getPins = function(){
-        $('.searchList').empty();
-      if(isPath_link){
-            $.each(searchResultURLS, function(index, value){
-                $('.searchList').append("<li>" +value +" </li>").hide().fadeIn();
-            });
-      }else{
-        $('.pin').each(function(){
-            pinId = $(this).find('.resourceTitle').attr('value');
-            pinTitle = $(this).find('.resourceTitle').text();
-            pinLink = $(this).find('.resourceTitle').attr('href');
-            pinDescription = $(this).find('.resourceDescription').text()
-            pinDescription = pinDescription.substring(0,500)+"...";
-            pinImage = $(this).find('.thumbImg').attr('src');
-            pinsArray.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
-        });
-
+      $('.searchList').empty();
+      if(!isPath_link){
         for(var i = 0; i < pinsArray.length; i++){
-            $('.searchList').append("<li><div class='resourceImage'>"
-                                    +"<img src='" +pinsArray[i]['pinImage'] +"' width='100%'></div>"
-                                    +"<div class='resourceDescription'><h3>"
-                                       +"<a href='"+pinsArray[i]['pinLink'] +"' class='resourceTitle' value='"+pinsArray[i]['pinId'] +"'>" +pinsArray[i]['pinTitle']+"</a></h3>"
-                                       + pinsArray[i]['pinDescription']
-                                    +"</div></li>").hide().fadeIn();
+          $('.searchList')
+            .append("<li><div class='resourceImage'>"
+                    +"<img src='" +pinsArray[i]['pinImage'] +"' width='100%'></div>"
+                    +"<div class='resourcesright'><div class='resourceTitle' value='"+pinsArray[i]['pinId'] +"'><h3>" +pinsArray[i]['pinTitle']+"</h3></div>"
+                    +"<div class='resourceLink'>("+pinsArray[i]['pinLink'] +")</div>"
+                    +"<div class='resourceDescription'>"+ pinsArray[i]['pinDescription']+"</div></div></li>").hide().fadeIn();
         }
-
-
-    }
+      }
     },
 	cleanUpWindow = function(){
 		slideWidth = $(window).width();
@@ -188,9 +174,9 @@ var ResourceView = function(){
 	    		if(!isToggledUp){
 					 $('#navCollapse').stop().fadeOut();
 						 }
-						}, 3000 );
+						}, 8000 );
 	       });
-		$('#home').click(function(event){
+		$('#home').unbind().click(function(event){
 				event.preventDefault();
   			history.go(-(slideHistory.length+1));
   			logUserEndTime(resource_id);
@@ -410,6 +396,11 @@ var ResourceView = function(){
 		numberOfSlides = 0;
 		slideHistory = [];
     	historyStackSize = 0;
+        window.resourceview_active = false;
+        setTimeout(function(){
+                $('#columns').masonry( 'reloadItems' );
+            }
+            ,200);
 
 	},
 
@@ -484,7 +475,6 @@ var ResourceView = function(){
 		});
 	};
 	newFlag = function(flagText){
-		console.log("lovely");
 		$.ajax({
 			type: "post",
 			url: "/flags/",
@@ -504,8 +494,10 @@ var ResourceView = function(){
 			}
 		});
 	},
-    setPaths = function(pathURLS){
-        searchResultURLS = pathURLS;
+    setPaths = function(pathURLS, url_paths){
+        searchResultURLS = url_paths;
+        pinsArray = pathURLS;
+        getPins();
         isPath_link = true;
     },
 	vote = function(vote){
@@ -587,26 +579,27 @@ $(function(){
         return false;
     });
     $('.pathPin').on('click', '.playPath', function(){
-        pathLinks = new Array();
-        res_ids = new Array();
         $(this).parents('.pathButtons').siblings('.pathResultsDetails').find('.pathLinkItems').each(function(){
+            res_array = [];
+            url_array = [];
             $current_resource = $(this).find('a');
-            pathLinks.push($current_resource.attr('href'));
-            res_ids.push($current_resource.attr('value'));
+            url_array.push($current_resource.attr('href'));
+
+            pinId = $current_resource.attr('value');
+            pinTitle = $current_resource.find('.resourceTitle').text().substring(0,50);
+            pinLink = $current_resource.attr('href').substring(0,47);
+            pinDescription =  $current_resource.find('.pathPinDescription').text().substring(0,250);
+            pinImage =  $current_resource.find('.thumbImg').attr('src');
+            res_array.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
         });
-        var path_link = pathLinks[0];
-        var get_resource_id = res_ids[0];
+        var path_link = res_array[0]['pinLink'];
+        var get_resource_id = res_array[0]['pinId'];
         var path_parts = path_link.split('/');
-        if(path_parts[1] == "resources"){
-            return true;
-        }else{
-            rView.setPaths(pathLinks);
-            rView.init(path_link, get_resource_id);
-            rView.setKeyBindings();
-            rView.comments(get_resource_id);
-            rView.logUser(get_resource_id);
-            return false;
-        }
+        rView.setPaths(res_array, url_array);
+        rView.init(path_link, get_resource_id);
+        rView.setKeyBindings();
+        rView.comments(get_resource_id);
+        rView.logUser(get_resource_id);
         return false;
     });
 
