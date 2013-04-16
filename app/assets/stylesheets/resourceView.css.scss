@@ -369,9 +369,12 @@ margin-left:9px;
 }
 #newCommentForm{
   color:white;
-  input{
+  #rcomment_content{
     margin-bottom:5px;
     width:300px;
+  }
+  input.submit{
+    width: 125px;
   }
   button{
     color:black;

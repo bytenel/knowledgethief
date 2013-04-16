@@ -30,7 +30,8 @@ color:white !important;
 }
 
 .commentsList{
-
+  position: relative;
+  bottom: 15px;
   width: 100%;
   overflow: auto;
   padding-left:10px;

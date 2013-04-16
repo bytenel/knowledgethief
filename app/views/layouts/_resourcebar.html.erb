@@ -64,12 +64,15 @@
 					<h2>Comments</h2>
 			    	<div id="commentsHolder">
 			    		<ul class="commentsList"></ul>
-					</div>	
+					</div>
+                    <div style="clear:both;"></div>
 					<div id="newCommentForm">
 						<% if(current_user) %>
-    						<form accept-charset="utf8" class="commentform" action="/comments/0/forresource" method="get">
-								<input id="commenttext" placeholder="comment..." type="text">
-		 						<button type="button" id="saveComment" >save</button>
+    						<form accept-charset="utf8" class="commentform" action="/rcomments/" method="post">
+                                <input id="rcomment_parent_id" name="rcomment[parent_id]" type="hidden">
+                                <input id="rcomment_resource_id" name="rcomment[resource_id]" type="hidden">
+								<input id="rcomment_content" name="rcomment[content]" placeholder="Comment..." type="text">
+                                <input name="commit" type="submit" value="Post Comment">
 							</form>
 						<% else %>
 								<div> Login to comment </div>
