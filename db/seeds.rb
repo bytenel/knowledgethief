@@ -25,7 +25,20 @@ require 'active_record/fixtures'
 #end
 
 
-
+User.create(
+            :role => 'admin',
+            :email => 'admin1@example.com',
+            :password => '123123123',
+            :password_confirmation => '123123123',
+            
+         )
+User.create(
+            :role => 'modernrator',
+            :email => 'admin2@example.com',
+            :password => '123123123',
+            :password_confirmation => '123123123',
+            
+         )
 
 
 
