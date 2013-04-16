@@ -6,8 +6,23 @@
  *= require_tree .
  *= require_tree ./engage
  *= require style
-<<<<<<< HEAD
- *
-=======
->>>>>>> master
-*/
+ */
+
+.notice{
+  height: 25px;
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+
+}
+.alert, .alert h4 {
+  height: 25px;
+  color: #c09853;
+}
+
+.error{
+  height: 25px;
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+}
