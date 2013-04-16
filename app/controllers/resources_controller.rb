@@ -22,7 +22,6 @@ class ResourcesController < ApplicationController
   end
 
   def create
-
     # Usability concern here... need to make sure that they are redirected back here once they log in or something
     if current_user == nil
       flash[:alert] = "You must log in to submit a resource!"
@@ -48,7 +47,7 @@ class ResourcesController < ApplicationController
       # No link provided, so this must be a question
 
     else
-      raise params[:resource]
+
       @resource = Resource.new(params[:resource])
       @resource.update_attributes(:active => true)
       @resource.save
