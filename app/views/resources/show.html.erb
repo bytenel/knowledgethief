@@ -1,10 +1,9 @@
 <div class = "resourceShowHolder">
-  <div class="resourceContentHolder">
     <div class="descriptionHolder">
       <div class="resourceImage">
-        <%= image_tag(@resource.snapshot.url, :class=>"thumbImg") %>
+        <%= link_to image_tag(@resource.snapshot.url, :class=>"thumbImg"), url_for(@resource.link), :value => @resource.id  %>
       </div>
-      <div id="resourceInfo">
+      <div class="resourceInfo">
         <div class="upvotesCount">
           <%= @resource.reputation_for(:votes).to_i %>
         </div>
@@ -20,8 +19,16 @@
       <%= @resource.tag_list %>
     </div>
     <div class="answersHolder">
-      Comments:
-      <%= nested_rcomments @rcomments.arrange(:order => :created_at) %>
-      <%= render "rcomments/form" %>
+      <div class="resourceComments">
+        Comments:<br><div style="clear:both;"></div>
+        <% if @rcomments.empty? %>
+           No one has left a comment yet. Be the first!
+        <% else %>
+            <%= nested_rcomments @rcomments.arrange(:order => :created_at) %>
+        <% end %>
+      </div>
+      <div class="newCommentForm">
+        <%= render "rcomments/form" %>
+      </div>
     </div>
-  </div>
+</div>

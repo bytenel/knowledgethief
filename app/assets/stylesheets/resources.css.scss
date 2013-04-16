@@ -1,12 +1,33 @@
 .resourceShowHolder{
-  padding:25px;
   color: #005580;
+  .answersHolder{
+    float:left;
+    width:75%;
+    height:100%;
+    min-height:100%;
+    padding:25px;
+    background: #f8f8f8;
+
+    .comment_Contents{
+       font-size: 16px;
+      font-family:'Open Sans';
+    }
+    .commentActions{
+      a{ color: gray;}
+    }
+    .created_at{
+      padding-left:5px;
+    }
+  }
+  /*
+   *   Main Content Answers Holder
+   */
+
+  /*
+   *   Right Side Description
+   */
   a{
     color: #005580;
-  }
-  .resourceContentHolder{
-    position:relative;
-    top:-25px;
   }
   .resourceButtons{
     position:relative;
@@ -16,13 +37,11 @@
   .resourceTitle{
     font-family: 'Open Sans', sans-serif !important;
     font-weight:800;
-    width:500px;
+    width:100%;
     color:#005580 !important;
     font-size:16px;
     float:left;
     padding-left:5px;
-    height:100%;
-
   }
   .resourceDescription{
     font-family: 'Open Sans', sans-serif !important;
@@ -36,6 +55,13 @@
     lid #ccc;
     z-index:0;
   }
+  .resourceInfo{
+     overflow: auto;
+     width: 100%;
+    .r{
+      overflow: auto;
+    }
+  }
   .upvotesCount{
     font-size:16px;
     font-family: 'Open Sans', sans-serif !important;
@@ -45,12 +71,6 @@
     width:25px;
     border-right: solid 1px #005580;
     z-index:0;
-    height:100%;
-  }
-  .resourceInfo{
-    padding:25px;
-    height:100%;
-    min-height:100%;
   }
   .descriptionHolder{
     float:left;
@@ -64,13 +84,6 @@
       width:100%;
     }
   }
-  .answersHolder{
-    float:left;
-    width:75%;
-    height:100%;
-    padding:25px;
-    background: #f8f8f8;
-  }
   .commentActions{
     display:inline-block;
     font-size: 12px;
@@ -78,25 +91,18 @@
   form{
     margin-top:10px;
   }
-}
-.rcomment{
-  background: #fbfbfb;
-  border: 1px solid lightgray;
-  width: 100%;
-  overflow: auto;
-  padding-left:10px;
-}
-.nested_rcomments {
-  margin-left: 30px;
-}
+  .rcomment{
+    background: #fbfbfb;
+    border: 1px solid lightgray;
+    width: 100%;
+    overflow: auto;
+    padding-left:10px;
+  }
+  .nested_rcomments {
+    margin-left: 30px;
+  }
 
-.nested_rcomments .nested_rcomments .nested_rcomments .nested_rcomments {
-  margin-left: 0;
-}
-.veilComments{
-  background: #1f1f1f;
-  border: 1px solid darkgray;
-  width: 100%;
-  overflow: auto;
-  padding-left:10px;
+  .nested_rcomments .nested_rcomments .nested_rcomments .nested_rcomments {
+    margin-left: 0;
+  }
 }

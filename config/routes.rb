@@ -43,9 +43,8 @@ Kt::Application.routes.draw do
   devise_for :users
 
 
-  resources :rcomments do
-     member {post :forresource}
-  end
+  resources :rcomments
+  match "/rcomments/forresource/:id" => "rcomments#forresource"
 
   resources :userResourceView
 

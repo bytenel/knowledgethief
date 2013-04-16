@@ -15,6 +15,7 @@ var ResourceView = function(){
     var slideHistory = new Array(); //left 0; right 1;
     var historyStackSize = 0;
     var isPath_link = false;
+    var pinsArray = [];
 	init = function(url,new_resource_id){
 		resource_id = new_resource_id;
 		setKeyBindings();
@@ -32,10 +33,10 @@ var ResourceView = function(){
         }else{
             $('.resourceTitle').each(function(){
                 searchResultURLS.push($(this).attr('href'));
-                $('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
+               // $('.searchList').append("<li>" +$(this).attr('href') +" </li>").hide().fadeIn();
             });
         }
-
+        getPins();
 		var isFirst = true;
 		for(var i = 0 ; i< searchResultURLS.length; i++){
 			if(searchResultURLS[i] === url){
@@ -89,6 +90,35 @@ var ResourceView = function(){
 		     }
 		   });
 	},
+    getPins = function(){
+        $('.searchList').empty();
+      if(isPath_link){
+            $.each(searchResultURLS, function(index, value){
+                $('.searchList').append("<li>" +value +" </li>").hide().fadeIn();
+            });
+      }else{
+        $('.pin').each(function(){
+            pinId = $(this).find('.resourceTitle').attr('value');
+            pinTitle = $(this).find('.resourceTitle').text();
+            pinLink = $(this).find('.resourceTitle').attr('href');
+            pinDescription = $(this).find('.resourceDescription').text()
+            pinDescription = pinDescription.substring(0,500)+"...";
+            pinImage = $(this).find('.thumbImg').attr('src');
+            pinsArray.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
+        });
+
+        for(var i = 0; i < pinsArray.length; i++){
+            $('.searchList').append("<li><div class='resourceImage'>"
+                                    +"<img src='" +pinsArray[i]['pinImage'] +"' width='100%'></div>"
+                                    +"<div class='resourceDescription'><h3>"
+                                       +"<a href='"+pinsArray[i]['pinLink'] +"' class='resourceTitle' value='"+pinsArray[i]['pinId'] +"'>" +pinsArray[i]['pinTitle']+"</a></h3>"
+                                       + pinsArray[i]['pinDescription']
+                                    +"</div></li>").hide().fadeIn();
+        }
+
+
+    }
+    },
 	cleanUpWindow = function(){
 		slideWidth = $(window).width();
 		slideHeight = $(window).height();
@@ -384,35 +414,9 @@ var ResourceView = function(){
 	},
 
 	comments = function(new_resource_id){
-		$.ajax({
-			type: "post",
-			url: "/rcomments/"+new_resource_id +"/forresource",
-			dataType: "json",
-			// Define request handlers.
-			success: function( objResponse ){
-				// Check to see if request was successful.
-				$('.commentsList').empty();
-				$.each(objResponse.rcomments, function(i, item) {
-					  var today = new Date();
-					  var post =Date.parse(item.created_at);
-					  //  date = Date.parse(DateToValue);
-					  difference = (today - post)/(1000*60);
-					  var timediff = 0;
-					  if(difference < 60){
-				        timediff = Math.floor(difference) + " minutes ago";
-			    	  }else if(difference < 1440 && difference >= 60){
-					    timediff = Math.floor(difference/60) + " hours ago";
-					  }else if(difference >= 1440){
-					    timediff = Math.floor(difference/(60*24)) + " days ago";
-					  }
-
-    				$('.commentsList').append("<li class='veilComments'> " +item.content +"  -  " +timediff+"</li>").hide().fadeIn();
-				});
-			},
-			error: function( objRequest, strError ){
-				alert("error with comment");
-			}
-		});
+        url = "/rcomments/forresource/"+new_resource_id;
+		return $.getScript(url).done(function(){
+        });
 	},
 	logUser = function(new_resource_id){
 		$.ajax({

@@ -24,10 +24,29 @@ bottom: 0;
 color:white !important;
 }
 #commentsHolder{
-height:250px;
+height:275px;
 overflow:auto;
 color:white !important;
 }
-#commentsList{
 
+.commentsList{
+
+  width: 100%;
+  overflow: auto;
+  padding-left:10px;
+  font-family: 'Open Sans';
+  font-size: 12px;
+  a{
+    font-family: 'Open Sans';
+    font-size: 12px;
+  }
+  .rcomment{
+    border: 1px solid #1f1f1f;
+  }
+  .nested_rcomments {
+    margin-left: 30px;
+  }
+  .nested_rcomments .nested_rcomments .nested_rcomments .nested_rcomments {
+    margin-left: 0;
+  }
 }

@@ -1,11 +1,16 @@
 <div class="rcomment">
 
-  <div class="content">
-    <%= link_to rcomment.content, rcomment %>
+  <div class="comment_Contents">
+    <%= rcomment.content %>
   </div>
   <div class="commentActions">
-    <div class="created_at" class ="commentActions"><%= rcomment.created_at.strftime("%B %d, %Y") %></div>
-    <%= link_to "Reply", new_rcomment_path(:parent_id => rcomment, :resource_id => rcomment.resource_id), :class => "commentActions" %> |
-    <%= link_to "Destroy", rcomment, :confirm => "Are you sure?", :method => :delete, :class => "commentActions" %>
+    <div class="created_at" class ="commentActions">
+      <%= rcomment.created_at.strftime("%B %d, %Y") %>     <br>
+      <%= link_to "Reply", new_rcomment_path(:parent_id => rcomment, :resource_id => rcomment.resource_id), :class => "commentActions" %>
+      <% if current_user.id == rcomment.user_id %>|
+      <%= link_to "Destroy", rcomment, :confirm => "Are you sure?", :method => :delete, :class => "commentActions" %>
+      <% end %>
+    </div>
+
   </div>
 </div>

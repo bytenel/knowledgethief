@@ -28,9 +28,7 @@
 			<div class="upvotesCount">
 	       		<%= resource.reputation_for(:votes).to_i %> 
 	   		</div>
-	   		<div class="r" value="<%= resource.id %>">
-	       		<%= link_to resource.title, url_for(resource.link), :value => resource.id, :class => 'resourceTitle' %> 
-	       	</div>
+            <%= link_to resource.title, url_for(resource.link), :value => resource.id, :class => 'resourceTitle' %>
 	    </div>
 		<div class="resourceDescription">
 	    	<%= resource.description %>

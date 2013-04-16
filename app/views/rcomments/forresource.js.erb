@@ -1,0 +1,11 @@
+var $list =  $('.commentsList');
+$list.empty();
+var $nestedComments = $('<%= j nested_rcomments(@rcomments.arrange(:order => :created_at)).to_s %>');
+<% if @rcomments.empty? %>
+    $list.append("<li class='veilComments'> " +"No one has left a comment yet. Be the first!" +"</li>").hide().fadeIn();
+<% else %>
+    $list.append($nestedComments).hide().fadeIn();
+<% end %>
+
+
+

@@ -36,10 +36,8 @@ class RcommentsController < ApplicationController
   def forresource
     resource_id = params[:id]
     @resource = Resource.find_by_id(resource_id)
-    @rcomments = @resource.rcomments
-    respond_to do |format|
-      format.json { render :status=>200, :json=>{:success=>true, :rcomments => @rcomments}}
-    end
+    @rcomments = @resource.rcomments.scoped
+    @rcomment = @resource.rcomments.new
   end
 
   # POST /rcomments
