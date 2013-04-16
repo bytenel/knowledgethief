@@ -231,6 +231,40 @@ ALTER SEQUENCE authentications_id_seq OWNED BY authentications.id;
 
 
 --
+-- Name: rcomments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rcomments (
+    id integer NOT NULL,
+    content text,
+    user_id integer,
+    resource_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying(255)
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY rcomments.id;
+
+
+--
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -492,6 +526,39 @@ CREATE TABLE in_paths (
 
 
 --
+-- Name: komments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE komments (
+    id integer NOT NULL,
+    content text,
+    user_id integer,
+    resource_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: komments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE komments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: komments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE komments_id_seq OWNED BY komments.id;
+
+
+--
 -- Name: paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -556,40 +623,6 @@ CREATE SEQUENCE pg_search_documents_id_seq
 --
 
 ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
-
-
---
--- Name: rcomments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE rcomments (
-    id integer NOT NULL,
-    content text,
-    user_id integer,
-    resource_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    ancestry character varying(255)
-);
-
-
---
--- Name: rcomments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE rcomments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rcomments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE rcomments_id_seq OWNED BY rcomments.id;
 
 
 --
@@ -1084,6 +1117,13 @@ ALTER TABLE ONLY flags ALTER COLUMN id SET DEFAULT nextval('flags_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY komments ALTER COLUMN id SET DEFAULT nextval('komments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY paths ALTER COLUMN id SET DEFAULT nextval('paths_id_seq'::regclass);
 
 
@@ -1098,7 +1138,7 @@ ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_sea
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rcomments ALTER COLUMN id SET DEFAULT nextval('rcomments_id_seq'::regclass);
+ALTER TABLE ONLY rcomments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
@@ -1222,7 +1262,7 @@ ALTER TABLE ONLY authentications
 -- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY rcomments
+ALTER TABLE ONLY komments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
@@ -1780,6 +1820,8 @@ INSERT INTO schema_migrations (version) VALUES ('20130303235745');
 INSERT INTO schema_migrations (version) VALUES ('20130304035656');
 
 INSERT INTO schema_migrations (version) VALUES ('20130304044437');
+
+INSERT INTO schema_migrations (version) VALUES ('20130304061340');
 
 INSERT INTO schema_migrations (version) VALUES ('20130304063107');
 
