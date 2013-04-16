@@ -1,5 +1,7 @@
 Kt::Application.routes.draw do
 
+  get "d3/index"
+
   resources :flags
 
   resources :activities
