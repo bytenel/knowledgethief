@@ -16,6 +16,8 @@
 .introjs-helperLayer {
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 9999998;
+  opacity:0.65;
+  filter:alpha(opacity=65);
   position: absolute;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -74,6 +76,8 @@
   -ms-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
+
+
 .introjs-tooltipbuttons {
   font-size: 10px;
   text-align: right;
