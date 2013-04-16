@@ -3,21 +3,6 @@
 		
 
 	<div class="path">
-		<button class="path_bttn"value="<%=resource.id%>">
-			Paths
-		</button>
-
-		<div class="path">
-	    <% unless Path.all.empty? %>
-	        
-	    <% else %>
-		       <ul class="nav">
-	              <li>
-	                <%= link_to 'Create a path', new_path_path %>
-	              </li>
-	           </ul>
-	    <% end %>
-		</div>
     </div>  
 	</div>
 	<div class="resourceContentHolder">
