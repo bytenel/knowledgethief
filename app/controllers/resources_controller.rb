@@ -94,14 +94,14 @@ class ResourcesController < ApplicationController
 
     # Make sure google(q, filter) is run first so the sort encompasses those results as well.
     # Make sure google(q, filter) is run first so the sort encompasses those results as well.
-    filter = "site"
+    filter = "video"
     if params[:filter] && !params[:filter].blank?
       filter = params[:filter].downcase
     end
 
     # Change this second parameter to filter when we figure out the organzation.
     ############ google(params[:q], filter) ####################################
-    Resource.google(params[:q], "videos")
+    Resource.google(params[:q], filter)
 
     unless params[:q].blank?
       @resources = Resource.full_search(params[:q])

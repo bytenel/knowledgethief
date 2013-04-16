@@ -131,7 +131,7 @@ class Resource < ActiveRecord::Base
         temp_resource = Resource.create!(:title => r[:title],
                                          :link => r[:link],
                                          :description => r[:snippet],
-                                         :media_type => "other",
+                                         :media_type => filter,
                                          :user_id => 1)
         temp_resource.tag_list = q
         upload_image(temp_resource)
