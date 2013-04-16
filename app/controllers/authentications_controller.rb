@@ -22,6 +22,11 @@ class AuthenticationsController < ApplicationController
        user.apply_omniauth(omniauth)
        sign_in_and_redirect(:user, authentication.user)
      elsif current_user
+       if(current_user.resume.nil?)
+         resume = Resume.new
+         resume.apply(current_user.id)
+         resume.save
+       end
        current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
        flash[:notice] = "Authentication successful."
        redirect_to authentications_url
