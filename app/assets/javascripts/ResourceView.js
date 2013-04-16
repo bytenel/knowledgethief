@@ -86,7 +86,7 @@ var ResourceView = function(){
 		     	cleanUpWindow();
 		       	setTimeout(function() {
 		    		if(!isToggledUp){
-					 $('#navCollapse').stop().fadeOut();
+					 $('#navCollapse').fadeOut();
 					 }
 					}, 3000 );
 		     }
@@ -94,7 +94,6 @@ var ResourceView = function(){
 	},
     getPins = function(){
       $('.searchList').empty();
-      if(!isPath_link){
         for(var i = 0; i < pinsArray.length; i++){
           $('.searchList')
             .append("<li><div class='resourceImage'>"
@@ -103,7 +102,7 @@ var ResourceView = function(){
                     +"<div class='resourceLink'>("+pinsArray[i]['pinLink'] +")</div>"
                     +"<div class='resourceDescription'>"+ pinsArray[i]['pinDescription']+"</div></div></li>").hide().fadeIn();
         }
-      }
+
     },
 	cleanUpWindow = function(){
 		slideWidth = $(window).width();
@@ -190,7 +189,6 @@ var ResourceView = function(){
     		event.preventDefault();
     		// Determine new position
     		if(!slideDisabled){
-    			slideDisabled = true;
     			var isNext  = ($(this).attr('id')=='nextslide') ? true : false;
 	    		if(currentPosition == 0  && !isNext)
 	    			return false;
@@ -198,6 +196,7 @@ var ResourceView = function(){
 	    			return false;
 	    		else
     			($(this).attr('id')=='nextslide') ? slideView(1) : slideView(-1);
+                slideDisabled = true;
     		}
     	});
     	$('.navigation-box').click(function(event){
@@ -283,6 +282,7 @@ var ResourceView = function(){
 	    $("#info-toggle").unbind("click").click(function(e){
 		e.preventDefault();
 	    	if( e.target.tagName.toUpperCase() !== 'INPUT' ) {
+                $('#navCollapse').fadeIn();
 	    		toggleBar();
 	    	}
 		});
@@ -301,7 +301,7 @@ var ResourceView = function(){
 						currentPosition--;
 						break
   				}
-  				$("#slideInner").stop().animate(
+  				$("#slideInner").animate(
 					{"marginLeft": slideWidth*(-currentPosition)},{
 	 				duration: 750,
 	 				complete: function(){
@@ -314,8 +314,8 @@ var ResourceView = function(){
 	},
 	manageIframes = function(position){
 		//check the current position and load the next iframe if possible.
-		var currentLink = iFrameURLS[position];
-		var new_res_id = $('a[href$="'+currentLink+'"]').attr('value');
+		var currentLink = pinsArray[position]['pinLink'];
+		var new_res_id = pinsArray[position]['pinId'];
 
 		logUserEndTime(resource_id);
 		resource_id = new_res_id;
@@ -324,7 +324,7 @@ var ResourceView = function(){
 		comments(resource_id);
     	if(position==0){
     		$('#leftControl').hide()
-    	}else if(position == numberOfSlides-1){
+    	}else if(position == numberOfSlides-1  && position != pinsArray.length-1){
     		var indexOfUrl = searchResultURLS.indexOf(iFrameURLS[position]);
     		var tempIFrame = document.createElement("iframe");
 				tempIFrame.setAttribute("id", "main-iframe2");
@@ -494,6 +494,9 @@ var ResourceView = function(){
 			}
 		});
 	},
+    isPin = function(){
+        isPath_link = false;
+    },
     setPaths = function(pathURLS, url_paths){
         searchResultURLS = url_paths;
         pinsArray = pathURLS;
@@ -537,6 +540,7 @@ var ResourceView = function(){
 		saveComment : saveComment,
 		toggleBar : toggleBar,
 		setKeyBindings : setKeyBindings,
+        isPin  : isPin,
         setPaths  : setPaths
 	};
 };
@@ -553,6 +557,7 @@ $(function(){
 		}else{
 			var link_href = link;
 			var get_resource_id = $(this).attr('value');
+            rView.isPin();
 	    	rView.init(link_href, get_resource_id);
 	    	rView.setKeyBindings();
 			rView.comments(get_resource_id);
@@ -570,6 +575,7 @@ $(function(){
         }else{
             var link_href = link;
             var get_resource_id = $(this).parent().attr('value');
+            rView.isPin();
             rView.init(link_href, get_resource_id);
             rView.setKeyBindings();
             rView.comments(get_resource_id);
@@ -579,17 +585,17 @@ $(function(){
         return false;
     });
     $('.pathPin').on('click', '.playPath', function(){
+        res_array = [];
+        url_array = [];
         $(this).parents('.pathButtons').siblings('.pathResultsDetails').find('.pathLinkItems').each(function(){
-            res_array = [];
-            url_array = [];
-            $current_resource = $(this).find('a');
-            url_array.push($current_resource.attr('href'));
+            $current_resource = $(this);
+            url_array.push($current_resource.find('a').attr('href'));
 
-            pinId = $current_resource.attr('value');
+            pinId = $current_resource.find('a').attr('value');
             pinTitle = $current_resource.find('.resourceTitle').text().substring(0,50);
-            pinLink = $current_resource.attr('href').substring(0,47);
+            pinLink = $current_resource.find('a').attr('href').substring(0,47);
             pinDescription =  $current_resource.find('.pathPinDescription').text().substring(0,250);
-            pinImage =  $current_resource.find('.thumbImg').attr('src');
+            pinImage =  $current_resource.find('img').attr('src');
             res_array.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
         });
         var path_link = res_array[0]['pinLink'];
