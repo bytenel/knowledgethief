@@ -57,7 +57,7 @@ class ResourcesController < ApplicationController
     end
     #@authen = Authentication.find_by_user_id_and_provider(current_user.id, 'facebook')
     if(!current_user.facebook.access_token.nil? && current_user.publish_actions)
-      current_user.facebook.put_wall_post("I posted a resource on www.knowledgethief.com")
+      current_user.facebook.put_wall_post("I posted a resource on www.knowledgethief.com! Go Check it out!")
     end
     redirect_to home_path
   end
