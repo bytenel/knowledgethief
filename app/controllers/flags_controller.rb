@@ -93,7 +93,7 @@ class FlagsController < InheritedResources::Base
 
   	@resource = Resource.find(params[:resource])
   	@resource.update_attributes(:active => false)
-  	redirect_to flags_path
+  	redirect_to flags_url
   end
 
 end

@@ -8,11 +8,11 @@
     <th>Reporter</th>
     <th>Resolved</th>
     <th>Moderator</th>
-    <th>Moderator msg</th>
+    <!--th>Moderator msg</th-->
     <th>Action</th>
     <th>Checked</th>
     <th></th>
-    <th></th>
+    <!--th></th-->
     <th></th>
   </tr>
 
@@ -24,11 +24,11 @@
     <td><%= flag.reporter_id %></td>
     <td><%= flag.resolved %></td>
     <td><%= flag.moderator_id %></td>
-    <td><%= flag.moderator_msg %></td>
+    <!--td><%#= flag.moderator_msg %></td-->
     <td><%= flag.action %></td>
     <td><%= flag.checked %></td>
     <td><%= link_to image_tag('takedown_button.png', :size => '70x30'), flag %></td>
-    <td><%= link_to image_tag('edit_button.png', :size => '70x30'), edit_flag_path(flag) %></td>
+    <!--td><%#= link_to image_tag('edit_button.png', :size => '70x30'), edit_flag_path(flag) %></td-->
     <td><%= link_to image_tag('delete_button.png', :size => '70x30'), flag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

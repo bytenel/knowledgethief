@@ -48,6 +48,8 @@ class Ability
         ski.try(:user_id) == user.id || user.role == "moderator"
       end
 
+      can :up
+
       can :update, Resource do |resource|
         resource.try(:user_id) == user.id 
       end
@@ -55,8 +57,9 @@ class Ability
         comment.try(:user_id) == user.id
       end
     else  
-      if user.role? == "admin"
+      if user.role == "admin"
         can :manage, :all
+        can :destroy, Flag
       else
         can :read, :all
         can :create, :all

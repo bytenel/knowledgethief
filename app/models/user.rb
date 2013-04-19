@@ -77,6 +77,9 @@ class User < ActiveRecord::Base
     (authentications.empty? || !password.blank?) && super
   end
 
+  def whatrole
+    self.role
+  end
 
   def facebook
     @facebook ||= Koala::Facebook::API.new(oauth_token)
