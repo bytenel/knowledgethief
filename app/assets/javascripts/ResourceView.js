@@ -99,7 +99,7 @@ var ResourceView = function(){
             .append("<li><div class='resourceImage'>"
                     +"<img src='" +pinsArray[i]['pinImage'] +"' width='100%'></div>"
                     +"<div class='resourcesright'><div class='resourceTitle' value='"+pinsArray[i]['pinId'] +"'><h3>" +pinsArray[i]['pinTitle']+"</h3></div>"
-                    +"<div class='resourceLink'>("+pinsArray[i]['pinLink'] +")</div>"
+                    +"<div class='resourceLink'>("+pinsArray[i]['pinLink'].substring(0,47) +")</div>"
                     +"<div class='resourceDescription'>"+ pinsArray[i]['pinDescription']+"</div></div></li>").hide().fadeIn();
         }
 
@@ -587,7 +587,7 @@ $(function(){
 
             pinId = $current_resource.find('a').attr('value');
             pinTitle = $current_resource.find('.resourceTitle').text().substring(0,50);
-            pinLink = $current_resource.find('a').attr('href').substring(0,47);
+            pinLink = $current_resource.find('a').attr('href');
             pinDescription =  $current_resource.find('.pathPinDescription').text().substring(0,250);
             pinImage =  $current_resource.find('img').attr('src');
             res_array.push({'pinId' : pinId, 'pinTitle' : pinTitle, 'pinLink' : pinLink, 'pinDescription' : pinDescription, 'pinImage' : pinImage});
