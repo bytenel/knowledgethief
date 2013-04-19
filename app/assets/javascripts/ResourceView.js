@@ -171,7 +171,7 @@ var ResourceView = function(){
 	    $('#bar-wrap').mouseleave(function(){
 	    	setTimeout(function() {
 	    		if(!isToggledUp){
-					 $('#navCollapse').stop().fadeOut();
+					 $('#navCollapse').fadeOut();
 						 }
 						}, 8000 );
 	       });
@@ -233,11 +233,11 @@ var ResourceView = function(){
 	    		}
 			});
     	});
-		$(".ajaxUpvote").click(function(e){
+		$(".ajaxUpvote").unbind("click").click(function(e){
 			e.preventDefault();
 			vote('up');
 		});
-		$(".ajaxDownvote").click(function(){
+		$(".ajaxDownvote").unbind("click").click(function(){
 			vote('down');
 		});
 		$('.commentform').submit(function(e){
@@ -371,9 +371,10 @@ var ResourceView = function(){
 				{"bottom": "10px"},{
 		     	duration: 500,
 		     	complete: function(){
+                     $('#navCollapse').fadeIn();
 		     }
 		   });
-			$('#navCollapse').stop().fadeIn();
+
 			isToggledUp = true;
 		}
 	},
@@ -392,9 +393,10 @@ var ResourceView = function(){
 		   {"right": "-5000px"},{
 		     duration: 1000,
 		     complete: function(){
-		       	$("#fadeAway").fadeIn(1000);
+		       	$("#navCollapse").fadeIn(1000);
 		     }
 		   });
+        pinsArray = [];
 		currentPosition = 0;
 		numberOfSlides = 0;
 		slideHistory = [];
@@ -403,8 +405,7 @@ var ResourceView = function(){
         setTimeout(function(){
                 $('#columns').masonry( 'reloadItems' );
             }
-            ,200);
-
+            ,300);
 	},
 
 	comments = function(new_resource_id){
