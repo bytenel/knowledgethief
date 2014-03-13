@@ -14,10 +14,6 @@ Kt::Application.routes.draw do
 
   resources :achievements
 
-  get "d3/index"
-
-  match '/d3', :to => 'd3#index'
-
   resources :flags
 
   resources :activities
