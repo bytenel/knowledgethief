@@ -40,3 +40,6 @@ KTDescription3.pdf
 
 # Rubymine bullshit
 .idea/*
+
+# Ignore secret keys and such
+/config/secret/*

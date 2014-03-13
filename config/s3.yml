@@ -1,12 +1,12 @@
 development:
   bucket: knowledgethief-dev
-  access_key_id: replace_me
-  secret_access_key: replace_me
+  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
 test:
   bucket: knowledgethief-test
-  access_key_id: replace_me
-  secret_access_key: replace_me
+  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
 production:
   bucket: knowledgethief-pro
-  access_key_id: replace_me
-  secret_access_key: replace_me
+  access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
