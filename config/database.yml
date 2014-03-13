@@ -1,5 +1,5 @@
 # Postgresql database for production, development and testing.
-#
+
 development:
   adapter: postgresql
   encoding: unicode
