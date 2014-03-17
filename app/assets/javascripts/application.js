@@ -19,7 +19,6 @@
 //= require jquery.treeTable.js
 //= require jquery.isotope.min.js
 //= require_tree .
-//= require introjs
 //= require jquery.masonry.min.js
 
 

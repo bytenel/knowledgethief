@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 
 # For Ubuntu to be happy
-gem 'therubyracer'
+gem 'therubyracer', "~> 0.12.1"
 
 # Tagging gem
 gem 'acts-as-taggable-on', '~> 2.3.1'
